@@ -1,16 +1,11 @@
 # OpenUI5 Financial Charts based on d3.js
-Финансовые диаграммы, такие как Candlestick, индикаторы CCI и др. для создания собственных инструментов технического анализа в OpenUI5. Выполнена с использованием популярной библиотеки [d3.js](https://github.com/d3/d3). Подходит для использования как на настольных компьютерах, так и на мобильных устройствах.
+An OpenUI5 control library based on [d3.js](https://github.com/d3/d3) to create financial charts like candlestick diagramm, indicators e.t.c.
 
-...
-A control library wich use the  in UI5 controls to create financial charts like candlestick diagramm, indicators e.t.c.
-This is a work in progress.
-
-// красивый скриншот можно разместить здесь
-![QRCode preview](https://raw.githubusercontent.com/StErMi/openui5-qrcode/master/preview.PNG)
+[Imgur](https://i.imgur.com/DZWgXx4.png)
 
 ## Demo
 You can checkout a live demo here:
-https://.../demo/webapp/index.html
+https://fokind.github.io/fc/demo/webapp/index.html
 
 ## Project Structure
 * demo - Demo site for the library
@@ -45,20 +40,20 @@ Add the library to *sap.ui5/dependencies/libs* and set its path in *sap.ui5/reso
 ```
 
 ## Usage
-To use it you must first install this code in your app.
-// привести пример с демо
+1. Prepare data model.
 
-1. Prepare data model
-Сделаем на примере Candlestick chart.
-Модель должна представлять свобой массив свечей, где свеча имеет время и четыре значения.
+2. Add callback method refresh when the model is ready.
+```
+var sUri = "./data/buffer.json";
+var oChart0 = this.byId("chart0");
+oModel.loadData(sUri).then(() => {
+  oChart0.refresh();
+});
+```
 
-2. Добавьте в контроллер команду на перерисовку диаграммы после загрузки данных
-Если модель подключается асинхронно или изменяется, то после обновления модели необходимо перерисовать диаграмму.
-Диаграмма не поддерживает "live mode" следит за моделью, но без команды не перерисовывается.
+3. Add the following to the same view's namespace declarations: `xmlns:chart="openui5.financial.chart"`
 
-2. Add the following to the same view's namespace declarations: `xmlns:chart="openui5.financial.chart"`
-
-2. In the view you want to use chart, insert the following:
+4. In the view you want to use chart, insert the following:
 ```
 <chart:Chart id="chart0"
     height="400px"
@@ -75,33 +70,6 @@ To use it you must first install this code in your app.
     </chart:CandlestickChart>
 </chart:Chart>
 ```
-
-## API
-### Chart
-#### Properties
-| Name | Type | Default| Description
-| :---- | :------------------- | :---- | :---------  |
-| id | string | auto | Нужно чтобы перерисовать диаграмму после обновления модели данных.
-| height | CSS | 150px | Minimum number of characters. Value '0' means the feature is switched off.
-| padding | boolean | true | Indicates that input must contain numbers
-| start | moment like | true | Indicates that input must contain symbols
-| end | moment like | true | Indicates that input must contain letters
-| timeframe | integer | 1 | The score is a number which indicates the password strength.
-
-### CandlestickChart
-#### Aggregations
-| Name | Type | Default| Description
-| :---- | :------------------- | :---- | :---------  |
-| items | string | auto | Нужно чтобы перерисовать диаграмму после обновления модели данных.
-
-### Candle
-| Name | Type | Default| Description
-| :---- | :------------------- | :---- | :---------  |
-| time | integer | 0 | Maximum number of characters. Value '0' means the feature is switched off.
-| open | integer | 0 | Minimum number of characters. Value '0' means the feature is switched off.
-| high | boolean | true | Indicates that input must contain numbers
-| low | boolean | true | Indicates that input must contain symbols
-| close | boolean | true | Indicates that input must contain letters
 
 ## Author
 Dmitry Fokin
