@@ -1,0 +1,20 @@
+/* =========================== */
+/* Global CSS for 'base' theme */
+/* =========================== */
+.fcBullish {
+  fill: #006362;
+  stroke: #006362;
+}
+.fcBearish {
+  fill: #ab0000;
+  stroke: #ab0000;
+}
+.fcCandleBody {
+  stroke-width: 0;
+}
+.fcCandleShadow {
+  stroke-width: 1;
+}
+
+/* Inline theming parameters */
+#sap-ui-theme-openui5\.financial\.chart{background-image:url('data:text/plain;utf-8,%7B%7D')}

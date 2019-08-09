@@ -1,0 +1,54 @@
+{
+  "_version": "1.9.0",
+  "sap.app": {
+    "id": "openui5.financial.chart",
+    "type": "library",
+    "embeds": [],
+    "applicationVersion": {
+      "version": "1.0.3-beta.0"
+    },
+    "title": "UI5 library: openui5.financial.chart",
+    "description": "UI5 library: openui5.financial.chart",
+    "resources": "resources.json",
+    "offline": true
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "supportedThemes": [
+      "base",
+      "sap_belize",
+      "sap_belize_plus",
+      "sap_hcb"
+    ]
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.68",
+      "libs": {
+        "sap.ui.core": {
+          "minVersion": "1.68.1"
+        }
+      }
+    },
+    "library": {
+      "i18n": false,
+      "content": {
+        "controls": [
+          "openui5.financial.chart.Candle",
+          "openui5.financial.chart.CandlestickChart",
+          "openui5.financial.chart.Chart",
+          "openui5.financial.chart.LineChart",
+          "openui5.financial.chart.LineChartItem",
+          "openui5.financial.chart.Series",
+          "openui5.financial.chart.SeriesItem",
+          "openui5.financial.chart.SteppedLineChart",
+          "openui5.financial.chart.TimeAxis",
+          "openui5.financial.chart.ValueAxis"
+        ],
+        "elements": [],
+        "types": [],
+        "interfaces": []
+      }
+    }
+  }
+}

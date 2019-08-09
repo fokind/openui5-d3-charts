@@ -1,0 +1,1 @@
+sap.ui.define([],function(){"use strict";return{render:function(t,e){t.write("<g");t.writeControlData(e);t.write("></g>")}}},true);

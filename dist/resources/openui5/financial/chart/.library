@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>openui5.financial.chart</name>
+	<version>1.0.3-beta.0</version>
+
+	<documentation>UI5 library: openui5.financial.chart</documentation>
+
+	<dependencies>
+		<dependency>
+			<libraryName>sap.ui.core</libraryName>
+			<libraryName>sap.m</libraryName>
+		</dependency>
+	</dependencies>
+
+	<appData>
+	</appData>
+
+</library>

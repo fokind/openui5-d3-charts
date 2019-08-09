@@ -1,0 +1,38 @@
+/* =========================== */
+/* Global CSS for 'base' theme */
+/* =========================== */
+.fcBullish {
+  fill: #3fa45b;
+  stroke: #3fa45b;
+}
+.fcBearish {
+  fill: #dc0d0e;
+  stroke: #dc0d0e;
+}
+.fcCandleBody {
+  stroke-width: 0;
+}
+.fcCandleShadow {
+  stroke-width: 1;
+}
+/* ===================================== */
+/* Quick Theming                         */
+/* ===================================== */
+/*
+ UX COLOR SET
+*/
+/* PRIMARY COLORS */
+/* ACCENT COLORS */
+/* LEGEND COLORS */
+/* Semantic Background Colors */
+/* Semantic Border Colors */
+/* Semantic Foreground Elements */
+/* Semantic Text */
+/* Semantic Foreground Colors */
+/* ===================================== */
+/* Expert Theming                        */
+/* ===================================== */
+
+
+/* Inline theming parameters */
+#sap-ui-theme-openui5\.financial\.chart{background-image:url('data:text/plain;utf-8,%7B%22default%22%3A%7B%7D%2C%22scopes%22%3A%7B%22sapContrast%22%3A%7B%7D%7D%7D')}
