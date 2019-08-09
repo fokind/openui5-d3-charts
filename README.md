@@ -1,7 +1,7 @@
 # OpenUI5 Financial Charts based on d3.js
 An OpenUI5 control library based on [d3.js](https://github.com/d3/d3) to create financial charts like candlestick diagramm, indicators e.t.c.
 
-[Imgur](https://i.imgur.com/DZWgXx4.png)
+![Imgur](https://i.imgur.com/DZWgXx4.png)
 
 ## Demo
 You can checkout a live demo here:
