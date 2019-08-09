@@ -1,0 +1,3 @@
+node_modules/
+dist/test-resources/
+test/ui5lab/browser/

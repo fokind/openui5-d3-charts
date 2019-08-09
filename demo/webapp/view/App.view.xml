@@ -1,0 +1,50 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" 
+  controllerName="ui5lab.demo.controller.App" 
+  xmlns="sap.m" 
+  xmlns:chart="openui5.financial.chart" 
+  xmlns:indicator="openui5.financial.chart.indicator" 
+  displayBlock="true">
+  <App>
+    <Page enableScrolling="false" 
+      showHeader="false">
+      <chart:Chart id="chart0" 
+        height="400px" 
+        padding="5 20 25 60" 
+        start="{view>/start}" 
+        end="{view>/end}" 
+        timeframe="15">
+        <chart:CandlestickChart items="{/candles}">
+          <chart:Candle time="{time}" 
+            open="{open}" 
+            high="{high}" 
+            low="{low}" 
+            close="{close}"/>
+        </chart:CandlestickChart>
+      </chart:Chart>
+      <chart:Chart id="chart1" 
+        height="200px" 
+        padding="5 20 25 60" 
+        start="{view>/start}" 
+        end="{view>/end}" 
+        timeframe="15">
+        <chart:SteppedLineChart items="{/candles}">
+          <chart:LineChartItem time="{time}" 
+            value="{close}"/>
+        </chart:SteppedLineChart>
+      </chart:Chart>
+      <chart:Chart id="chart2" 
+        height="100px" 
+        padding="5 20 25 60" 
+        start="{view>/start}" 
+        end="{view>/end}" 
+        timeframe="15">
+        <indicator:CCIOZ items="{/indicatorOutputs/0/output}" 
+          overboughtZone="100" 
+          oversoldZone="-100">
+          <chart:LineChartItem time="{time}" 
+            value="{values/0}"/>
+        </indicator:CCIOZ>
+      </chart:Chart>
+    </Page>
+  </App>
+</mvc:View>

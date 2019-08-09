@@ -1,0 +1,28 @@
+{
+  "openui5.financial.chart": {
+    "icon": "sap-icon://business-objects-experience",
+    "name": "Financial Charts",
+    "description": "A library wrapping d3.js in UI5 controls to create financial charts like candlestick",
+    "source": "https://github.com/fokind/openui5-financial-charts.git",
+    "documentation": "https://github.com/fokind/openui5-financial-charts#readme",
+    "license": "MIT",
+    "version": "1.0.3",
+    "content": {
+      "FinansialCharts": {
+        "id": "financial-charts",
+        "name": "FinansialCharts",
+        "type": "control",
+        "version": "1.0.3",
+        "description": "A library wrapping d3.js in UI5 controls to create financial charts like candlestick",
+        "samples": [
+          {
+            "id": "CandlestickChart",
+            "name": "Candlestick Chart",
+            "description": "Candlestick Chart",
+            "url": "https://fokind.github.io/fc/demo/webapp/index.html"
+          }
+        ]
+      }
+    }
+  }
+}

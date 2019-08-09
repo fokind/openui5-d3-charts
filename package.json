@@ -1,0 +1,49 @@
+{
+  "name": "openui5-financial-charts",
+  "version": "1.0.3",
+  "description": "OpenUI5 Financial Charts based on d3.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fokind/openui5-financial-charts"
+  },
+  "homepage": "https://github.com/fokind/openui5-financial-charts",
+  "ui5lab": {
+    "namespace": "openui5.financial.chart",
+    "icon": "business-objects-experience",
+    "displayName": "Financial Charts"
+  },
+  "keywords": [
+    "ui5",
+    "openui5",
+    "d3",
+    "stock",
+    "exchange",
+    "candle",
+    "candlestick",
+    "financial",
+    "chart",
+    "indicator"
+  ],
+  "author": {
+    "name": "Dmitry Fokin"
+  },
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "echo \"Error: no test specified. Please add some.\" && exit 1",
+    "prepare": "node prepare.js",
+    "start": "ui5 serve -o",
+    "build": "ui5 build"
+  },
+  "dependencies": {
+    "@openui5/sap.m": "^1.68.1",
+    "@openui5/sap.ui.core": "^1.68.1",
+    "@openui5/themelib_sap_belize": "^1.68.1"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^1.7.0",
+    "eslint": "^6.1.0",
+    "fs-extra": "^8.1.0",
+    "ui5lab-browser": "^1.1.3"
+  }
+}
