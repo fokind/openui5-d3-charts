@@ -1,6 +1,6 @@
 {
   "name": "openui5-financial-charts",
-  "version": "1.0.3-beta.0",
+  "version": "1.0.4-beta",
   "description": "OpenUI5 Financial Charts based on d3.js",
   "repository": {
     "type": "git",
@@ -22,7 +22,9 @@
     "candlestick",
     "financial",
     "chart",
-    "indicator"
+    "indicator",
+    "cci",
+    "macd"
   ],
   "author": {
     "name": "Dmitry Fokin"

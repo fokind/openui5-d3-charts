@@ -45,6 +45,19 @@
             value="{values/0}"/>
         </indicator:CCIOZ>
       </chart:Chart>
+      <chart:Chart id="chart3" 
+        height="100px" 
+        padding="5 20 25 60" 
+        start="{view>/start}" 
+        end="{view>/end}" 
+        timeframe="15">
+        <indicator:MACD items="{/candles}">
+          <indicator:MACDItem time="{time}" 
+            macd="{= ${high} - ${open}}" 
+            trigger="{= ${close} - ${low}}" 
+            histogram="{= ${high} - ${open} - ${close} + ${low}}"/>
+        </indicator:MACD>
+      </chart:Chart>
     </Page>
   </App>
 </mvc:View>
