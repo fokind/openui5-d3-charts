@@ -12,7 +12,7 @@
         padding="5 20 25 60" 
         start="{view>/start}" 
         end="{view>/end}" 
-        timeframe="15">
+        timeframe="60">
         <chart:CandlestickChart items="{/candles}">
           <chart:Candle time="{time}" 
             open="{open}" 
@@ -26,7 +26,7 @@
         padding="5 20 25 60" 
         start="{view>/start}" 
         end="{view>/end}" 
-        timeframe="15">
+        timeframe="60">
         <chart:SteppedLineChart items="{/candles}">
           <chart:LineChartItem time="{time}" 
             value="{close}"/>
@@ -37,7 +37,7 @@
         padding="5 20 25 60" 
         start="{view>/start}" 
         end="{view>/end}" 
-        timeframe="15">
+        timeframe="60">
         <indicator:CCIOZ items="{/indicatorOutputs/0/output}" 
           overboughtZone="100" 
           oversoldZone="-100">
@@ -50,12 +50,12 @@
         padding="5 20 25 60" 
         start="{view>/start}" 
         end="{view>/end}" 
-        timeframe="15">
-        <indicator:MACD items="{/candles}">
+        timeframe="60">
+        <indicator:MACD items="{/indicatorOutputs/1/output}">
           <indicator:MACDItem time="{time}" 
-            macd="{= ${high} - ${open}}" 
-            trigger="{= ${close} - ${low}}" 
-            histogram="{= ${high} - ${open} - ${close} + ${low}}"/>
+            macd="{values/0}" 
+            trigger="{values/1}" 
+            histogram="{values/2}"/>
         </indicator:MACD>
       </chart:Chart>
     </Page>
