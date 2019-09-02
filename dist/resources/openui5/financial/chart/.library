@@ -2,7 +2,7 @@
 <library xmlns="http://www.sap.com/sap.ui.library.xsd">
 
 	<name>openui5.financial.chart</name>
-	<version>1.0.4-beta</version>
+	<version>1.0.5-beta</version>
 
 	<documentation>UI5 library: openui5.financial.chart</documentation>
 

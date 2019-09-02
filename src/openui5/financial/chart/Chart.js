@@ -22,39 +22,44 @@ sap.ui.define(
           padding: { type: "string", defaultValue: "0" },
           start: "string",
           end: "string",
-          timeframe: "string"
+          period: { type: "float", defaultValue: 1 }
         },
         aggregations: {
-          _timeAxis: { type: "openui5.financial.chart.TimeAxis", multiple: false },
-          _valueAxis: { type: "openui5.financial.chart.ValueAxis", multiple: false },
+          _timeAxis: {
+            type: "openui5.financial.chart.TimeAxis",
+            multiple: false
+          },
+          _valueAxis: {
+            type: "openui5.financial.chart.ValueAxis",
+            multiple: false
+          },
           series: { type: "openui5.financial.chart.Series", multiple: true }
         },
         defaultAggregation: "series"
       },
 
       init: function() {
-        var oControl = this;
-        oControl.setAggregation("_timeAxis", new TimeAxis());
-        oControl.setAggregation("_valueAxis", new ValueAxis());
+        this.setAggregation("_timeAxis", new TimeAxis());
+        this.setAggregation("_valueAxis", new ValueAxis());
+        ResizeHandler.register(this, this.onResize.bind(this));
+      },
 
-        ResizeHandler.register(oControl, function() {
-          oControl._draw();
-        });
+      onResize: function(oEvent) {
+        this._fWidth = oEvent.size.width;
+        this._fHeight = oEvent.size.height;
+        this._draw();
       },
 
       setStart: function(sValue) {
-        this.getAggregation("_timeAxis").setStart(sValue);
         this.setProperty("start", sValue, true);
       },
 
       setEnd: function(sValue) {
-        this.getAggregation("_timeAxis").setEnd(sValue);
         this.setProperty("end", sValue, true);
       },
 
-      setTimeframe: function(sValue) {
-        this.getAggregation("_timeAxis").setTimeframe(sValue);
-        this.setProperty("timeframe", sValue, true);
+      setPeriod: function(fPeriod) {
+        this.setProperty("period", fPeriod, true);
       },
 
       // без этого связывается только 100 элементов
@@ -77,56 +82,51 @@ sap.ui.define(
           iPaddingLength === 1 ? 0 : iPaddingLength === 4 ? 3 : 1
         ];
 
-        this.setProperty("padding", sPadding);
+        this.setProperty("padding", sPadding, true);
       },
 
       onAfterRendering: function() {
-        this._draw();
-      },
-
-      refresh: function() {
-        var oControl = this;
-        // посчитать мин макс
-        var aSeries = oControl.getSeries();
-        var oValueAxis = this.getAggregation("_valueAxis");
-
-        var fMin = d3.min(aSeries, function(e) {
-          return e._getMin();
-        });
-        oValueAxis.setMin(fMin);
-
-        var fMax = d3.max(aSeries, function(e) {
-          return e._getMax();
-        });
-        oValueAxis.setMax(fMax);
-
-        // перерисовать
+        this._svg = d3.select("#" + this.getId()).select("svg");
         this._draw();
       },
 
       _draw: function() {
-        var oControl = this;
-        var div = d3.select("#" + oControl.getId());
+        if (!this._fWidth || !this._fHeight || !this._fPaddingTop) return;
 
-        if (!div.node()) return;
+        var fWidth = this._fWidth;
+        this._svg.attr("width", fWidth);
+        this._fPlotAreaWidth =
+          fWidth - this._fPaddingLeft - this._fPaddingRight;
+        this.getAggregation("_timeAxis").setRange([0, this._fPlotAreaWidth]);
 
-        var fWidth = div.node().offsetWidth;
-        var fHeight = div.node().offsetHeight;
+        var fHeight = this._fHeight;
+        this._svg.attr("height", fHeight);
+        this._fPlotAreaHeight =
+          fHeight - this._fPaddingBottom - this._fPaddingTop;
+        this.getAggregation("_valueAxis").setRange([this._fPlotAreaHeight, 0]);
+        // сдвинуть вниз ось времени
+        this.getAggregation("_valueAxis")._draw();
+        this.getAggregation("_timeAxis")._draw();
 
-        var svg = div
-          .select("svg")
-          .attr("width", fWidth)
-          .attr("height", fHeight);
-
-        // оси
-        oControl.getAggregation("_timeAxis")._draw();
-        oControl.getAggregation("_valueAxis")._draw();
-
-        // все серии
-        var aSeries = oControl.getSeries();
+        var aSeries = this.getSeries();
         for (var i = 0; i < aSeries.length; i++) {
           aSeries[i]._draw();
         }
+      },
+
+      refresh: function() {
+        var aSeries = this.getSeries();
+        this.getAggregation("_valueAxis").setDomain([
+          d3.min(aSeries, e => e._getMin()),
+          d3.max(aSeries, e => e._getMax())
+        ]);
+
+        this.getAggregation("_timeAxis").setDomain([
+          moment(this.getStart()).toDate(),
+          moment(this.getEnd()).toDate()
+        ]);
+
+        this._draw();
       }
     });
   }

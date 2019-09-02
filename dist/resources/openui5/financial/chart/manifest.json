@@ -5,7 +5,7 @@
     "type": "library",
     "embeds": [],
     "applicationVersion": {
-      "version": "1.0.4-beta"
+      "version": "1.0.5-beta"
     },
     "title": "UI5 library: openui5.financial.chart",
     "description": "UI5 library: openui5.financial.chart",
@@ -23,10 +23,10 @@
   },
   "sap.ui5": {
     "dependencies": {
-      "minUI5Version": "1.68",
+      "minUI5Version": "1.69",
       "libs": {
         "sap.ui.core": {
-          "minVersion": "1.68.1"
+          "minVersion": "1.69.1"
         }
       }
     },
@@ -44,6 +44,7 @@
           "openui5.financial.chart.SteppedLineChart",
           "openui5.financial.chart.TimeAxis",
           "openui5.financial.chart.ValueAxis",
+          "openui5.financial.chart.indicator.CCI",
           "openui5.financial.chart.indicator.CCIOZ",
           "openui5.financial.chart.indicator.MACD",
           "openui5.financial.chart.indicator.MACDItem"

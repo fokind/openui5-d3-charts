@@ -31,6 +31,20 @@ sap.ui.define(["sap/ui/core/Control", "./library", "./thirdparty/d3"], function(
       this.removeAggregation("items", oValue, true);
     },
 
+    _getTickWidth: function() {
+      var aItems = this.getItems();
+      if (aItems.length < 1) return;
+      var oParent = this.getParent();
+      var fPeriod = oParent.getPeriod();
+      var timeScale = oParent.getAggregation("_timeAxis")._scale;
+
+      return timeScale(
+        moment(moment(oParent.getStart()).toDate())
+          .add(fPeriod, "m")
+          .toDate()
+      );
+    },
+
     _getMin: function() {
       var aItems = this.getItems();
       return d3.min(aItems, function(e) {
@@ -46,9 +60,8 @@ sap.ui.define(["sap/ui/core/Control", "./library", "./thirdparty/d3"], function(
     },
 
     _draw: function() {
-      var oControl = this;
-      var oParent = oControl.getParent();
-      d3.select("#" + oControl.getId())
+      var oParent = this.getParent();
+      d3.select("#" + this.getId())
         .attr(
           "transform",
           `translate(${oParent._fPaddingLeft}, ${oParent._fPaddingTop})`

@@ -14,35 +14,26 @@ sap.ui.define(
       renderer: {},
 
       _draw: function() {
-        var oControl = this;
-        Series.prototype._draw.apply(oControl);
+        Series.prototype._draw.apply(this);
 
-        var oParent = oControl.getParent();
-        var oTimeAxis = oParent.getAggregation("_timeAxis");
-        var sStart = oTimeAxis.getStart();
-        var sEnd = oTimeAxis.getEnd();
-        var aItems = oControl
-          .getItems()
-          .filter(e => moment(e.getTime()).isBetween(sStart, sEnd, "m", "[]"));
+        var oParent = this.getParent();
+        var aItems = this.getItems();
+        if (aItems.length < 1) return;
 
-        var timeScale = oTimeAxis._scale;
+        var timeScale = oParent.getAggregation("_timeAxis")._scale;
+        var valueScale = oParent.getAggregation("_valueAxis")._scale;
         var valueScale = oParent.getAggregation("_valueAxis")._scale;
 
-        var series = d3.select("#" + oControl.getId());
+        var series = d3.select("#" + this.getId());
 
         // подготовка переменных
         var fCandleBodyWidth = 0.8; // TODO заменить на ось категорий
-        var fTickWidth = timeScale(
-          moment(moment(sStart).toDate())
-            .add(+oParent.getTimeframe(), "m")
-            .toDate()
-        );
+        var fTickWidth = this._getTickWidth();
 
         var candles = series
           .selectAll()
           .data(aItems)
           .enter()
-          .filter(e => moment(e.getTime()).isBetween(sStart, sEnd, "m", "[]"))
           .append("g")
           .classed("fcNone", true);
 
