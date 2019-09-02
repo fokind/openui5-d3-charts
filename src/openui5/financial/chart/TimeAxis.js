@@ -9,9 +9,8 @@ sap.ui.define(["sap/ui/core/Control", "./library", "./thirdparty/d3"], function(
     metadata: {
       library: "openui5.financial.chart",
       properties: {
-        start: "string",
-        end: "string",
-        timeframe: "string"
+        domain: "any",
+        range: "any"
       }
     },
 
@@ -19,48 +18,27 @@ sap.ui.define(["sap/ui/core/Control", "./library", "./thirdparty/d3"], function(
       this._scale = d3.scaleTime();
     },
 
-    setStart: function(sValue) {
-      this.setProperty("start", sValue, true);
+    setDomain: function(oDomain) {
+      this._scale.domain(oDomain);
+      this.setProperty("domain", oDomain, true);
     },
 
-    setEnd: function(sValue) {
-      this.setProperty("end", sValue, true);
-    },
-
-    setTimeframe: function(sValue) {
-      this.setProperty("timeframe", sValue, true);
+    setRange: function(oRange) {
+      this._scale.range(oRange);
+      this.setProperty("range", oRange, true);
     },
 
     _draw: function() {
-      var oControl = this;
-      var oParent = oControl.getParent();
-
-      var div = d3.select("#" + oParent.getId());
-
-      if (!div.node()) return;
-
-      var fWidth = div.node().offsetWidth;
-      var fHeight = div.node().offsetHeight;
-
-      var fPaddingTop = oParent._fPaddingTop;
-      var fPaddingLeft = oParent._fPaddingLeft;
-
-      var fPlotAreaWidth = fWidth - fPaddingLeft - oParent._fPaddingRight;
-      var fPlotAreaHeight = fHeight - oParent._fPaddingBottom - fPaddingTop;
-
-      var scale = oControl._scale.range([0, fPlotAreaWidth]).domain([
-        moment(oControl.getStart()).toDate(),
-        moment(oControl.getEnd())
-          .add(1, "m")
-          .toDate()
-      ]);
-
-      d3.select("#" + oControl.getId())
-        .attr(
-          "transform",
-          `translate(${fPaddingLeft}, ${fPaddingTop + fPlotAreaHeight})`
-        )
-        .call(d3.axisBottom(scale));
+      var oParent = this.getParent();
+      if (oParent._fPlotAreaHeight) {
+        d3.select("#" + this.getId())
+          .attr(
+            "transform",
+            `translate(${oParent._fPaddingLeft}, ${oParent._fPaddingTop +
+              oParent._fPlotAreaHeight})`
+          )
+          .call(d3.axisBottom(this._scale));
+      }
     }
   });
 });

@@ -13,35 +13,31 @@ sap.ui.define(
     return Series.extend("openui5.financial.chart.LineChart", {
       metadata: {
         aggregations: {
-          items: { type: "openui5.financial.chart.LineChartItem", multiple: true }
+          items: {
+            type: "openui5.financial.chart.LineChartItem",
+            multiple: true
+          }
         }
       },
 
       renderer: {},
 
       _draw: function() {
-        var oControl = this;
-        Series.prototype._draw.apply(oControl);
+        Series.prototype._draw.apply(this);
 
-        var oParent = oControl.getParent();
-        var oTimeAxis = oParent.getAggregation("_timeAxis");
-        var sStart = oTimeAxis.getStart();
-        var sEnd = oTimeAxis.getEnd();
-        var aItems = oControl
-          .getItems()
-          .filter(e => moment(e.getTime()).isBetween(sStart, sEnd, "m", "[]"));
+        var oParent = this.getParent();
+        var aItems = this.getItems();
 
-        var timeScale = oTimeAxis._scale;
+        var timeScale = oParent.getAggregation("_timeAxis")._scale;
         var valueScale = oParent.getAggregation("_valueAxis")._scale;
 
-        var series = d3.select("#" + oControl.getId());
+        var series = d3.select("#" + this.getId());
 
         series
           .append("path")
           .datum(aItems)
           .attr("fill", "none")
           .attr("stroke", "steelblue")
-          .attr("stroke-width", 2)
           .attr(
             "d",
             d3

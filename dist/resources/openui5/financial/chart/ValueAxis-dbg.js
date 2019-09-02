@@ -9,8 +9,8 @@ sap.ui.define(["sap/ui/core/Control", "./library", "./thirdparty/d3"], function(
     metadata: {
       library: "openui5.financial.chart",
       properties: {
-        max: "float",
-        min: "float"
+        domain: "any",
+        range: "any"
       }
     },
 
@@ -18,33 +18,24 @@ sap.ui.define(["sap/ui/core/Control", "./library", "./thirdparty/d3"], function(
       this._scale = d3.scaleLinear();
     },
 
-    setMax: function(fMax) {
-      this.setProperty("max", fMax, true);
+    setDomain: function(oDomain) {
+      this._scale.domain(oDomain);
+      this.setProperty("domain", oDomain, true);
     },
 
-    setMin: function(fMin) {
-      this.setProperty("min", fMin, true);
+    setRange: function(oRange) {
+      this._scale.range(oRange);
+      this.setProperty("range", oRange, true);
     },
 
-  _draw: function() {
-      var oControl = this;
-      var oParent = oControl.getParent();
-
-      var div = d3.select("#" + oParent.getId());
-      var fHeight = div.node().offsetHeight;
-
-      var fPaddingTop = oParent._fPaddingTop;
-      var fPaddingLeft = oParent._fPaddingLeft;
-
-      var fPlotAreaHeight = fHeight - oParent._fPaddingBottom - fPaddingTop;
-
-      var scale = oControl._scale
-        .range([fPlotAreaHeight, 0])
-        .domain([oControl.getMin(), oControl.getMax()]);
-
-      d3.select("#" + oControl.getId())
-        .attr("transform", `translate(${fPaddingLeft}, ${fPaddingTop})`)
-        .call(d3.axisLeft(scale));
+    _draw: function() {
+      var oParent = this.getParent();
+      d3.select("#" + this.getId())
+        .attr(
+          "transform",
+          `translate(${oParent._fPaddingLeft}, ${oParent._fPaddingTop})`
+        )
+        .call(d3.axisLeft(this._scale));
     }
   });
 });
