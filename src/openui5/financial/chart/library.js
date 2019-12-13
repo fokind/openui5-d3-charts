@@ -7,23 +7,16 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/library"], function() {
     types: [],
     interfaces: [],
     controls: [
-      "openui5.financial.chart.Candle",
-      "openui5.financial.chart.CandlestickChart",
       "openui5.financial.chart.Chart",
       "openui5.financial.chart.LineChart",
       "openui5.financial.chart.LineChartItem",
       "openui5.financial.chart.Series",
       "openui5.financial.chart.SeriesItem",
-      "openui5.financial.chart.SteppedLineChart",
       "openui5.financial.chart.TimeAxis",
-      "openui5.financial.chart.ValueAxis",
-      "openui5.financial.chart.indicator.CCI",
-      "openui5.financial.chart.indicator.CCIOZ",
-      "openui5.financial.chart.indicator.MACD",
-      "openui5.financial.chart.indicator.MACDItem"
+      "openui5.financial.chart.ValueAxis"
     ],
     elements: [],
-    noLibraryCSS: false,
+    noLibraryCSS: true,
     version: "${version}"
   });
 

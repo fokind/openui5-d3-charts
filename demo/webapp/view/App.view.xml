@@ -2,27 +2,12 @@
   controllerName="ui5lab.demo.controller.App" 
   xmlns="sap.m" 
   xmlns:chart="openui5.financial.chart" 
-  xmlns:indicator="openui5.financial.chart.indicator" 
   displayBlock="true">
   <App>
     <Page enableScrolling="false" 
       showHeader="false">
       <chart:Chart id="chart0" 
-        height="240px" 
-        padding="5 20 25 60" 
-        start="{/start}" 
-        end="{/end}" 
-        period="{/period}">
-        <chart:CandlestickChart items="{/candles}">
-          <chart:Candle time="{time}" 
-            open="{open}" 
-            high="{high}" 
-            low="{low}" 
-            close="{close}"/>
-        </chart:CandlestickChart>
-      </chart:Chart>
-      <chart:Chart id="chart1" 
-        height="120px" 
+        height="300px" 
         padding="5 20 25 60" 
         start="{/start}" 
         end="{/end}" 
@@ -31,54 +16,6 @@
           <chart:LineChartItem time="{time}" 
             value="{close}"/>
         </chart:LineChart>
-      </chart:Chart>
-      <chart:Chart id="chart2" 
-        height="90px" 
-        padding="5 20 25 60" 
-        start="{/start}" 
-        end="{/end}" 
-        period="{/period}">
-        <indicator:CCI items="{/indicatorOutputs/0/output}">
-          <chart:LineChartItem time="{time}" 
-            value="{values/0}"/>
-        </indicator:CCI>
-      </chart:Chart>
-      <chart:Chart id="chart3" 
-        height="90px" 
-        padding="5 20 25 60" 
-        start="{/start}" 
-        end="{/end}" 
-        period="{/period}">
-        <indicator:CCIOZ items="{/indicatorOutputs/0/output}" 
-          overboughtZone="100" 
-          oversoldZone="-100">
-          <chart:LineChartItem time="{time}" 
-            value="{values/0}"/>
-        </indicator:CCIOZ>
-      </chart:Chart>
-      <chart:Chart id="chart4" 
-        height="90px" 
-        padding="5 20 25 60" 
-        start="{/start}" 
-        end="{/end}" 
-        period="{/period}">
-        <indicator:MACD items="{/indicatorOutputs/1/output}">
-          <indicator:MACDItem time="{time}" 
-            macd="{values/0}" 
-            trigger="{values/1}" 
-            histogram="{values/2}"/>
-        </indicator:MACD>
-      </chart:Chart>
-      <chart:Chart id="chart5" 
-        height="120px" 
-        padding="5 20 25 60" 
-        start="{/start}" 
-        end="{/end}" 
-        period="{/period}">
-        <chart:SteppedLineChart items="{/candles}">
-          <chart:LineChartItem time="{time}" 
-            value="{close}"/>
-        </chart:SteppedLineChart>
       </chart:Chart>
     </Page>
   </App>
