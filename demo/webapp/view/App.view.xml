@@ -7,11 +7,7 @@
     <Page enableScrolling="false" 
       showHeader="false">
       <chart:Chart id="chart0" 
-        height="300px" 
-        padding="5 20 25 60" 
-        start="{/start}" 
-        end="{/end}" 
-        period="{/period}">
+        height="300px">
         <chart:LineChart items="{/candles}">
           <chart:LineChartItem time="{time}" 
             value="{close}"/>

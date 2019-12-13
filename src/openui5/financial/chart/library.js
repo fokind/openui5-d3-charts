@@ -11,9 +11,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/library"], function() {
       "openui5.financial.chart.LineChart",
       "openui5.financial.chart.LineChartItem",
       "openui5.financial.chart.Series",
-      "openui5.financial.chart.SeriesItem",
-      "openui5.financial.chart.TimeAxis",
-      "openui5.financial.chart.ValueAxis"
+      "openui5.financial.chart.SeriesItem"
     ],
     elements: [],
     noLibraryCSS: true,

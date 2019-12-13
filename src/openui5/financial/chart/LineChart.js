@@ -24,15 +24,25 @@ sap.ui.define(
 
       _draw: function() {
         Series.prototype._draw.apply(this);
-
         var oParent = this.getParent();
+        var svg = d3.select("#" + oParent.getId()).select("svg");
+		if (svg.empty() || !oParent._fWidth || !oParent._fHeight) {
+			return;
+		}
         var aItems = this.getItems();
+        var svg = d3.select("#" + oParent.getId()).select("svg");
+        var timeScale = d3.scaleTime().domain([
+          moment(aItems[0].getTime()).toDate(),
+          moment(aItems[aItems.length - 1].getTime()).toDate()
+        ]).range([0, oParent._fWidth]);
 
-        var timeScale = oParent.getAggregation("_timeAxis")._scale;
-        var valueScale = oParent.getAggregation("_valueAxis")._scale;
+        var valueScale = d3.scaleLinear().domain([
+          d3.min(aItems, e => e.getValue()),
+          d3.max(aItems, e => e.getValue())
+        ]).range([oParent._fHeight, 0]);
 
-        var series = d3.select("#" + this.getId());
-
+		var series = d3.select("#" + this.getId());
+		
         series
           .append("path")
           .datum(aItems)
