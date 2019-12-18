@@ -44,6 +44,7 @@ sap.ui.define(
       },
 
       onAfterRendering: function() {
+      	// d3.select("#" + this.getId()).selectAll("*").remove();
         this._draw();
       },
 

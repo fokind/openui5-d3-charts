@@ -6,8 +6,7 @@
   <App>
     <Page enableScrolling="false" 
       showHeader="false">
-      <chart:Chart id="chart0" 
-        height="300px">
+      <chart:Chart id="chart0" >
         <chart:LineChart items="{/candles}">
           <chart:LineChartItem time="{time}" 
             value="{close}"/>
