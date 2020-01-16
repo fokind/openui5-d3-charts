@@ -14,6 +14,11 @@
         "openui5.chart": {}
       }
     },
+    "models": {
+    	"": {
+    		"type": "sap.ui.model.json.JSONModel"
+    	}
+    },
     "rootView": {
       "viewName": "ui5lab.demo.view.App",
       "type": "XML"

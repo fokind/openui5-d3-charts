@@ -7,11 +7,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/library"], function() {
     types: [],
     interfaces: [],
     controls: [
-      "openui5.chart.Chart",
-      "openui5.chart.LineChart",
-      "openui5.chart.LineChartItem",
-      "openui5.chart.Series",
-      "openui5.chart.SeriesItem"
+      "openui5.chart.Chart"
     ],
     elements: [],
     noLibraryCSS: true,

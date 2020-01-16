@@ -1,14 +1,14 @@
-/* global d3 moment */
+/* global d3 */
 
 sap.ui.define(
   [
     "sap/ui/core/Control",
     "sap/ui/core/ResizeHandler",
-    "./library",
+    "sap/ui/core/Item",
     "./thirdparty/d3",
-    "./thirdparty/moment-with-locales"
+    "./library"
   ],
-  function(Control, ResizeHandler) {
+  function(Control, ResizeHandler, Item) {
     "use strict";
 
     return Control.extend("openui5.chart.Chart", {
@@ -19,19 +19,21 @@ sap.ui.define(
           width: { type: "string", defaultValue: "100%" }
         },
         aggregations: {
-          series: { type: "openui5.chart.Series", multiple: true }
+          items: { type: "sap.ui.core.Item", multiple: true }
         },
-        defaultAggregation: "series"
+        defaultAggregation: "items"
       },
+      
+      _fWidth: 0,
+      _fHeight: 0,
+      _sResizeHandlerId: null,
 
       init: function() {
-        ResizeHandler.register(this, this.onResize.bind(this));
+        this._sResizeHandlerId = ResizeHandler.register(this, this._onResize.bind(this));
       },
 
-      onResize: function(oEvent) {
-        this._fWidth = oEvent.size.width;
-        this._fHeight = oEvent.size.height;
-        this._draw();
+      exit: function() {
+        ResizeHandler.deregister(this._sResizeHandlerId);
       },
 
       // без этого связывается только 100 элементов
@@ -43,11 +45,6 @@ sap.ui.define(
         ); //call superclass
       },
 
-      onAfterRendering: function() {
-      	// d3.select("#" + this.getId()).selectAll("*").remove();
-        this._draw();
-      },
-
       _draw: function() {
       	var div = d3.select("#" + this.getId());
 		var svg = div.select("svg");
@@ -56,19 +53,50 @@ sap.ui.define(
 			svg = div.append("svg");
 		}
 
-        var fWidth = this._fWidth;
-        svg.attr("width", fWidth);
+        svg.attr("width", this._fWidth);
+        svg.attr("height", this._fHeight);
 
-        var fHeight = this._fHeight;
-        svg.attr("height", fHeight);
+		var aItems = this.getItems();
+		var scaleX = d3.scaleLinear()
+			.domain([0, aItems.length - 1])
+			.range([0, this._fWidth]);
 
-        var aSeries = this.getSeries();
-        for (var i = 0; i < aSeries.length; i++) {
-          aSeries[i]._draw();
-        }
+		var fMin = d3.min(aItems, function(e) {
+			return +e.getText();
+		});
+
+		var fMax = d3.max(aItems, function(e) {
+			return +e.getText();
+		});
+		
+		var scaleY = d3.scaleLinear()
+			.domain([fMin, fMax])
+			.range([this._fHeight, 0]);
+			
+		svg.selectAll("*").remove();
+		svg.append("path")
+			.datum(aItems)
+			.attr("fill", "none")
+			.attr("stroke", "black")
+			.attr(
+				"d",
+				d3.line()
+					.x(function(e, i) {
+						return scaleX(i);
+					})
+					.y(function(e) {
+						return scaleY(+e.getText());
+					})
+			);
       },
 
-      refresh: function() {
+      _onResize: function(oEvent) {
+        this._fWidth = oEvent.size.width;
+        this._fHeight = oEvent.size.height;
+        this._draw();
+      },
+
+      onAfterRendering: function() {
         this._draw();
       }
     });
