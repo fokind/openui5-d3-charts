@@ -10,11 +10,11 @@ sap.ui.define(
   function(Series) {
     "use strict";
 
-    return Series.extend("openui5.financial.chart.LineChart", {
+    return Series.extend("openui5.chart.LineChart", {
       metadata: {
         aggregations: {
           items: {
-            type: "openui5.financial.chart.LineChartItem",
+            type: "openui5.chart.LineChartItem",
             multiple: true
           }
         }
@@ -24,12 +24,16 @@ sap.ui.define(
 
       _draw: function() {
         Series.prototype._draw.apply(this);
+        var aItems = this.getItems();
+        if (!aItems || !aItems.length) {
+        	return;
+        }
+        
         var oParent = this.getParent();
         var svg = d3.select("#" + oParent.getId()).select("svg");
 		if (svg.empty() || !oParent._fWidth || !oParent._fHeight) {
 			return;
 		}
-        var aItems = this.getItems();
         var svg = d3.select("#" + oParent.getId()).select("svg");
         var timeScale = d3.scaleTime().domain([
           moment(aItems[0].getTime()).toDate(),

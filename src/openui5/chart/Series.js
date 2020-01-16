@@ -5,11 +5,11 @@ sap.ui.define(["sap/ui/core/Control", "./library", "./thirdparty/d3"], function(
 ) {
   "use strict";
 
-  return Control.extend("openui5.financial.chart.Series", {
+  return Control.extend("openui5.chart.Series", {
     metadata: {
-      library: "openui5.financial.chart",
+      library: "openui5.chart",
       aggregations: {
-        items: { type: "openui5.financial.chart.SeriesItem", multiple: true }
+        items: { type: "openui5.chart.SeriesItem", multiple: true }
       },
       defaultAggregation: "items"
     },

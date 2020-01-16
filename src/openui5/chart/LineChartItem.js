@@ -1,7 +1,7 @@
 sap.ui.define(["./SeriesItem", "./library"], function(SeriesItem) {
   "use strict";
 
-  return SeriesItem.extend("openui5.financial.chart.LineChartItem", {
+  return SeriesItem.extend("openui5.chart.LineChartItem", {
     metadata: {
       properties: {
         value: "float"

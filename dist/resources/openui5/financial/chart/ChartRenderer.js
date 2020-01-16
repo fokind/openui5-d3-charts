@@ -1,1 +1,0 @@
-sap.ui.define([],function(){"use strict";return{render:function(t,e){t.write("<div");t.writeControlData(e);t.writeClasses();t.addStyle("height",e.getHeight());t.addStyle("width",e.getWidth());t.writeStyles();t.write(">");t.write("</div>")}}},true);

@@ -11,15 +11,7 @@
       "libs": {
         "sap.ui.core": {},
         "sap.m": {},
-        "openui5.financial.chart": {}
-      }
-    },
-    "models": {
-      "": {
-        "type": "sap.ui.model.json.JSONModel"
-      },
-      "view": {
-        "type": "sap.ui.model.json.JSONModel"
+        "openui5.chart": {}
       }
     },
     "rootView": {

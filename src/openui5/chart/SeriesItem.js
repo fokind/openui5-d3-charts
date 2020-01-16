@@ -1,9 +1,9 @@
 sap.ui.define(["sap/ui/core/Control", "./library"], function(Control) {
   "use strict";
 
-  return Control.extend("openui5.financial.chart.SeriesItem", {
+  return Control.extend("openui5.chart.SeriesItem", {
     metadata: {
-      library: "openui5.financial.chart",
+      library: "openui5.chart",
       properties: {
         time: "string"
       }

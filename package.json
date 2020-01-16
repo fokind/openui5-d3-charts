@@ -1,30 +1,22 @@
 {
-  "name": "openui5-financial-charts",
-  "version": "1.0.5-beta",
-  "description": "OpenUI5 Financial Charts based on d3.js",
+  "name": "openui5-d3-charts",
+  "version": "1.0.0-alpha",
+  "description": "OpenUI5 Charts based on d3.js wrapped into resposive bindable controls",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fokind/openui5-financial-charts"
+    "url": "https://github.com/fokind/openui5-d3-charts"
   },
-  "homepage": "https://github.com/fokind/openui5-financial-charts",
+  "homepage": "https://github.com/fokind/openui5-d3-charts",
   "ui5lab": {
-    "namespace": "openui5.financial.chart",
+    "namespace": "openui5.charts",
     "icon": "business-objects-experience",
-    "displayName": "Financial Charts"
+    "displayName": "Charts"
   },
   "keywords": [
     "ui5",
     "openui5",
     "d3",
-    "stock",
-    "exchange",
-    "candle",
-    "candlestick",
-    "financial",
-    "chart",
-    "indicator",
-    "cci",
-    "macd"
+    "chart"
   ],
   "author": {
     "name": "Dmitry Fokin"
@@ -38,9 +30,9 @@
     "build": "ui5 build"
   },
   "dependencies": {
-    "@openui5/sap.m": "^1.69.1",
-    "@openui5/sap.ui.core": "^1.69.1",
-    "@openui5/themelib_sap_belize": "^1.69.1"
+    "@openui5/sap.m": "^1.73.2",
+    "@openui5/sap.ui.core": "^1.73.2",
+    "@openui5/themelib_sap_belize": "^1.73.2"
   },
   "devDependencies": {
     "@ui5/cli": "^1.8.0",

@@ -1,1 +1,0 @@
-sap.ui.define(["./SeriesItem","./library"],function(e){"use strict";return e.extend("openui5.financial.chart.LineChartItem",{metadata:{properties:{value:"float"}},setValue:function(e){this.setProperty("value",e,true)},_getMin:function(){return this.getValue()},_getMax:function(){return this.getValue()}})});

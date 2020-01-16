@@ -1,7 +1,7 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" 
   controllerName="ui5lab.demo.controller.App" 
   xmlns="sap.m" 
-  xmlns:chart="openui5.financial.chart" 
+  xmlns:chart="openui5.chart" 
   displayBlock="true">
   <App>
     <Page enableScrolling="false" 

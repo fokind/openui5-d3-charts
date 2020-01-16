@@ -11,15 +11,15 @@ sap.ui.define(
   function(Control, ResizeHandler) {
     "use strict";
 
-    return Control.extend("openui5.financial.chart.Chart", {
+    return Control.extend("openui5.chart.Chart", {
       metadata: {
-        library: "openui5.financial.chart",
+        library: "openui5.chart",
         properties: {
           height: { type: "string", defaultValue: "100%" },
           width: { type: "string", defaultValue: "100%" }
         },
         aggregations: {
-          series: { type: "openui5.financial.chart.Series", multiple: true }
+          series: { type: "openui5.chart.Series", multiple: true }
         },
         defaultAggregation: "series"
       },
