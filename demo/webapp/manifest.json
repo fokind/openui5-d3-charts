@@ -11,16 +11,13 @@
       "libs": {
         "sap.ui.core": {},
         "sap.m": {},
-        "openui5.financial.chart": {}
+        "openui5.chart": {}
       }
     },
     "models": {
-      "": {
-        "type": "sap.ui.model.json.JSONModel"
-      },
-      "view": {
-        "type": "sap.ui.model.json.JSONModel"
-      }
+    	"": {
+    		"type": "sap.ui.model.json.JSONModel"
+    	}
     },
     "rootView": {
       "viewName": "ui5lab.demo.view.App",

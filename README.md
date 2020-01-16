@@ -1,11 +1,9 @@
-# OpenUI5 Financial Charts based on d3.js
-An OpenUI5 control library based on [d3.js](https://github.com/d3/d3) to create financial charts like candlestick diagramm, indicators e.t.c.
-
-![Imgur](https://i.imgur.com/DZWgXx4.png)
+# OpenUI5 Charts based on d3.js
+An OpenUI5 library based on [d3.js](https://github.com/d3/d3) to create charts as responsive bindable fiori-like controls.
 
 ## Demo
 You can checkout a live demo here:
-https://fokind.github.io/fc/demo/webapp/index.html
+https://fokind.github.io/openui5-d3-charts/demo/webapp/index.html
 
 ## Project Structure
 * demo - Demo site for the library
@@ -16,9 +14,9 @@ https://fokind.github.io/fc/demo/webapp/index.html
 ## Getting started
 
 ### Installation
-Install openui5-financial-charts as an npm module
+Install openui5-charts as an npm module
 ```sh
-$ npm install openui5-financial-charts
+$ npm install openui5-charts
 ```
 
 ### Configure manifest.json
@@ -29,47 +27,44 @@ Add the library to *sap.ui5/dependencies/libs* and set its path in *sap.ui5/reso
   "sap.ui5": {
     "dependencies": {
       "libs": {
-        "openui5.financial.chart": {}
+        "openui5.chart": {}
       }
     },
     "resourceRoots": {
-      "openui5.financial.chart": "./FOLDER_WHERE_YOU_PLACED_THE_LIBRARY/openui5/financial/chart/"
+      "openui5.chart": "./FOLDER_WHERE_YOU_PLACED_THE_LIBRARY/openui5/chart/"
     }
   }
 }
 ```
 
 ## Usage
-1. Prepare data model.
-
-2. Add callback method refresh when the model is ready.
+1. Prepare data model. For examle:
 ```
-var sUri = "./data/buffer.json";
-var oChart0 = this.byId("chart0");
-oModel.loadData(sUri).then(() => {
-  oChart0.refresh();
-});
+this.getModel().setProperty("/data", [
+	{ y: 0 },
+	{ y: -1 },
+	{ y: 2 },
+	{ y: 3 }
+]);
 ```
 
-3. Add the following to the same view's namespace declarations: `xmlns:chart="openui5.financial.chart"`
-
-4. In the view you want to use chart, insert the following:
+2. Add the following namespace declarations to the view with chart control:
 ```
-<chart:Chart id="chart0"
-    height="400px"
-    padding="5 20 25 60"
-    start="{/start}"
-    end="{/end}"
-    timeframe="15">
-    <chart:CandlestickChart items="{/candles}">
-        <chart:Candle time="{time}" 
-            open="{open}" 
-            high="{high}" 
-            low="{low}" 
-            close="{close}"/>
-    </chart:CandlestickChart>
+xmlns:core="sap.ui.core"
+xmlns:chart="openui5.chart"
+```
+
+3. Add the following control to the view:
+```
+<chart:Chart items="{/data}">
+	<core:Item text="{y}"/>
 </chart:Chart>
 ```
+It's all!
+
+It is very simple to use in style like other bindable controls. All that is required is to make two bindings: a set of points and a property that contains values.
+
+If the model changes, or the window is resized, the chart will redrawn.
 
 ## Author
 Dmitry Fokin
