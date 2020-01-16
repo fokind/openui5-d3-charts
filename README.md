@@ -1,5 +1,5 @@
 # OpenUI5 Charts based on d3.js
-An OpenUI5 library based on [d3.js](https://github.com/d3/d3) to create charts as resposive bindable fiori-like controls.
+An OpenUI5 library based on [d3.js](https://github.com/d3/d3) to create charts as responsive bindable fiori-like controls.
 
 ## Demo
 You can checkout a live demo here:
