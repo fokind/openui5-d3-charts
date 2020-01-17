@@ -6,7 +6,9 @@
   <App>
     <Page enableScrolling="false" 
       showHeader="false">
-      <chart:Chart items="{/data}">
+      <chart:Chart items="{/data}"
+    	axisWidth="50"
+    	axisHeight="30">
         <core:Item text="{y}"/>
       </chart:Chart>
     </Page>
