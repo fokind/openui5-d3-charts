@@ -17,8 +17,7 @@ sap.ui.define(
         properties: {
           height: { type: "string", defaultValue: "100%" },
           width: { type: "string", defaultValue: "100%" },
-          axisWidth: { type: "float", defaultValue: 0 },
-          axisHeight: { type: "float", defaultValue: 0 }
+          padding: { type: "string", defaultValue: "0" }
         },
         aggregations: {
           //_axisX: {
@@ -36,7 +35,13 @@ sap.ui.define(
 
       _fWidth: 0,
       _fHeight: 0,
+      _fPaddingTop: 0,
+      _fPaddingRight: 0,
+      _fPaddingBottom: 0,
+      _fPaddingLeft: 0,
+
       _sResizeHandlerId: null,
+
       _scaleX: d3.scaleLinear(),
       _scaleY: d3.scaleLinear(),
 
@@ -60,6 +65,20 @@ sap.ui.define(
         ); //call superclass
       },
 
+      setPadding: function(sPadding) {
+        var aPadding = sPadding.split(" ");
+        var iPaddingLength = aPadding.length;
+
+        this._fPaddingTop = +aPadding[0];
+        this._fPaddingRight = +aPadding[iPaddingLength === 1 ? 0 : 1];
+        this._fPaddingBottom = +aPadding[iPaddingLength < 3 ? 0 : 2];
+        this._fPaddingLeft = +aPadding[
+          iPaddingLength === 1 ? 0 : iPaddingLength === 4 ? 3 : 1
+        ];
+
+        this.setProperty("padding", sPadding);
+      },
+
       _draw: function() {
         var div = d3.select("#" + this.getId());
         var svg = div.select("svg");
@@ -72,16 +91,18 @@ sap.ui.define(
 
         var fWidth = this._fWidth;
         var fHeight = this._fHeight;
-        var fAxisWidth = this.getAxisWidth();
-        var fAxisHeight = this.getAxisHeight();
-        var fPlotAreaHeight = fHeight - fAxisHeight;
+        var fPaddingTop = this._fPaddingTop;
+        var fPaddingLeft = this._fPaddingLeft;
+        var fPaddingRight = this._fPaddingRight;
+        var fPaddingBottom = this._fPaddingBottom;
+        var fPlotAreaHeight = fHeight - fPaddingTop - fPaddingBottom;
 
         svg.attr("width", fWidth);
         svg.attr("height", fHeight);
 
         var scaleX = this._scaleX
           .domain([0, aItems.length - 1])
-          .range([fAxisWidth, fWidth]);
+          .range([fPaddingLeft, fWidth - fPaddingRight]);
 
         var fMin = d3.min(aItems, function(e) {
           return +e.getText();
@@ -93,20 +114,20 @@ sap.ui.define(
 
         var scaleY = this._scaleY
           .domain([fMin, fMax])
-          .range([fPlotAreaHeight, 0]);
+          .range([fPaddingTop + fPlotAreaHeight, fPaddingTop]);
 
         svg.selectAll("*").remove();
 
         // inserting axisY
         svg
           .append("g")
-          .attr("transform", `translate(${fAxisWidth}, 0)`)
+          .attr("transform", `translate(${fPaddingLeft}, 0)`)
           .call(d3.axisLeft(this._scaleY));
 
         // inserting axisX
         svg
           .append("g")
-          .attr("transform", `translate(0, ${fPlotAreaHeight})`)
+          .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
           .call(d3.axisBottom(this._scaleX));
 
         // inserting line series
