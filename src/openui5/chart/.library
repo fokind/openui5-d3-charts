@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <library xmlns="http://www.sap.com/sap.ui.library.xsd">
 
-	<name>openui5.financial.chart</name>
+	<name>openui5.chart</name>
 	<version>${version}</version>
 
-	<documentation>UI5 library: openui5.financial.chart</documentation>
+	<documentation>UI5 library: openui5.chart</documentation>
 
 	<dependencies>
 		<dependency>
