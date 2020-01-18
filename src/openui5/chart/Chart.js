@@ -37,7 +37,7 @@ sap.ui.define(
       _fWidth: 0,
       _fHeight: 0,
       _sResizeHandlerId: null,
-      _scaleX: d3.scaleTime(),
+      _scaleX: d3.scaleLinear(),
       _scaleY: d3.scaleLinear(),
 
       init: function() {
@@ -98,20 +98,16 @@ sap.ui.define(
         svg.selectAll("*").remove();
 
         // inserting axisY
-        // svg.append("g")
-        // 	.attr(
-        // 		"transform",
-        // 		`translate(${fAxisWidth}, 0)`
-        // 	)
-        // 	.call(d3.axisLeft(this._scaleY));
+        svg
+          .append("g")
+          .attr("transform", `translate(${fAxisWidth}, 0)`)
+          .call(d3.axisLeft(this._scaleY));
 
         // inserting axisX
-        // svg.append("g")
-        // 	.attr(
-        // 		"transform",
-        // 		`translate(${fPlotAreaHeight}, ${fAxisWidth})`
-        // 	)
-        // 	.call(d3.axisBottom(this._scaleX));
+        svg
+          .append("g")
+          .attr("transform", `translate(0, ${fPlotAreaHeight})`)
+          .call(d3.axisBottom(this._scaleX));
 
         // inserting line series
         svg
