@@ -1,5 +1,5 @@
 {
-  "name": "openui5-d3-charts",
+  "name": "openui5-charts",
   "version": "1.0.0-alpha",
   "description": "OpenUI5 Charts based on d3.js wrapped into resposive bindable controls",
   "repository": {
