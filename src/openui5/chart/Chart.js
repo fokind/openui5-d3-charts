@@ -5,6 +5,7 @@ sap.ui.define(
     "sap/ui/core/Control",
     "sap/ui/core/ResizeHandler",
     "sap/ui/core/Item",
+    "openui5/chart/Axis",
     "./thirdparty/d3",
     "./library"
   ],
@@ -20,14 +21,8 @@ sap.ui.define(
           padding: { type: "string", defaultValue: "0" }
         },
         aggregations: {
-          //_axisX: {
-          //  type: "openui5.chart.TimeAxis",
-          //  multiple: false
-          //},
-          //_axisY: {
-          //  type: "openui5.chart.ValueAxis",
-          //  multiple: false
-          //},
+          xAxes: { type: "openui5.chart.Axis", multiple: true },
+          yAxes: { type: "openui5.chart.Axis", multiple: true },
           items: { type: "sap.ui.core.Item", multiple: true }
         },
         defaultAggregation: "items"
@@ -88,13 +83,20 @@ sap.ui.define(
         }
 
         var aItems = this.getItems();
+        var aXAxes = this.getXAxes();
+        var aYAxes = this.getYAxes();
 
         var fWidth = this._fWidth;
         var fHeight = this._fHeight;
         var fPaddingTop = this._fPaddingTop;
-        var fPaddingLeft = this._fPaddingLeft;
+        var fPaddingLeft = this._fPaddingLeft + aYAxes.map(function(e) { return e.getSize(); }).reduce(function(a, b) {
+        	return a + b;
+        }, 0);
+        // UNDONE a padding and a shift border of plot area are not same
         var fPaddingRight = this._fPaddingRight;
-        var fPaddingBottom = this._fPaddingBottom;
+        var fPaddingBottom = this._fPaddingBottom + aXAxes.map(function(e) { return e.getSize(); }).reduce(function(a, b) {
+        	return a + b;
+        }, 0);
         var fPlotAreaHeight = fHeight - fPaddingTop - fPaddingBottom;
 
         svg.attr("width", fWidth);
@@ -119,17 +121,21 @@ sap.ui.define(
         svg.selectAll("*").remove();
 
         // inserting axisY
-        svg
-          .append("g")
-          .attr("transform", `translate(${fPaddingLeft}, 0)`)
-          .call(d3.axisLeft(this._scaleY));
+        if(aYAxes.length) {
+	        svg
+	          .append("g")
+	          .attr("transform", `translate(${fPaddingLeft}, 0)`)
+	          .call(d3.axisLeft(this._scaleY));
+		}
 
         // inserting axisX
-        svg
-          .append("g")
-          .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
-          .call(d3.axisBottom(this._scaleX));
-
+        if(aXAxes.length) {
+	        svg
+	          .append("g")
+	          .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
+	          .call(d3.axisBottom(this._scaleX));
+        }
+        
         // inserting line series
         svg
           .append("path")

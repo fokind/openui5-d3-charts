@@ -7,6 +7,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/library"], function() {
     types: [],
     interfaces: [],
     controls: [
+      "openui5.chart.Axis",
       "openui5.chart.Chart"
     ],
     elements: [],
