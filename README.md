@@ -2,8 +2,7 @@
 An OpenUI5 library based on [d3.js](https://github.com/d3/d3) to create charts as responsive bindable fiori-like controls.
 
 ## Demo
-You can checkout a live demo here:
-[Demo page](docs/demo/index.html)
+You can checkout a live demo here: https://fokind.github.io/openui5-d3-charts/demo/index.html
 
 ## Project Structure
 * demo - Demo site for the library
