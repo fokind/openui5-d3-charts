@@ -1,3 +1,2 @@
-# OpenUI5 Charts
-You can see demo here:
-[Demo page](demo/index.html)
+## Demo
+You can checkout a live demo here: [Demo page](demo/index.html)
