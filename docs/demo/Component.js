@@ -9,10 +9,10 @@ sap.ui.define(["sap/ui/core/UIComponent", "sap/ui/model/json/JSONModel"], functi
     init: function() {
       UIComponent.prototype.init.apply(this, arguments);
       this.getModel().setProperty("/data", [
-      	{ y: 0 },
-      	{ y: -1 },
-      	{ y: 2 },
-      	{ y: 3 }
+      	{ a: 0, b: 1 },
+      	{ a: -1, b: 1 },
+      	{ a: 2, b: 3 },
+      	{ a: 3, b: 5 }
       ]);
     }
   });
