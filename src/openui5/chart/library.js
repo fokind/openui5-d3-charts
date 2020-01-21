@@ -12,7 +12,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/library"], function() {
       "openui5.chart.Series"
     ],
     elements: [],
-    noLibraryCSS: true,
+    noLibraryCSS: false,
     version: "${version}"
   });
 

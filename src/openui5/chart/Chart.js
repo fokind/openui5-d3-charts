@@ -151,8 +151,7 @@ sap.ui.define(
 	          .attr("data-sap-ui", sId)
 	          .append("path")
 	          .datum(aSeries[i].getItems())
-	          .attr("fill", "none")
-	          .attr("stroke", "black")
+	          .classed("oChartChart" + (i + 1), true) // классы нумеруются с 1
 	          .attr(
 	            "d",
 	            d3
