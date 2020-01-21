@@ -1,6 +1,6 @@
 {
   "name": "openui5-charts",
-  "version": "1.0.0-alpha",
+  "version": "1.0.1-alpha",
   "description": "OpenUI5 Charts based on d3.js wrapped into resposive bindable controls",
   "repository": {
     "type": "git",
@@ -23,6 +23,10 @@
   },
   "license": "MIT",
   "private": false,
+  "main": "dist/resources/openui5/chart/library-preload.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified. Please add some.\" && exit 1",
     "prepare": "node prepare.js",

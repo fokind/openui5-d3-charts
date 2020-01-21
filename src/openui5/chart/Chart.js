@@ -4,12 +4,12 @@ sap.ui.define(
   [
     "sap/ui/core/Control",
     "sap/ui/core/ResizeHandler",
-    "sap/ui/core/Item",
     "openui5/chart/Axis",
+    "openui5/chart/Series",
     "./thirdparty/d3",
     "./library"
   ],
-  function(Control, ResizeHandler, Item) {
+  function(Control, ResizeHandler) {
     "use strict";
 
     return Control.extend("openui5.chart.Chart", {
@@ -23,9 +23,9 @@ sap.ui.define(
         aggregations: {
           xAxes: { type: "openui5.chart.Axis", multiple: true },
           yAxes: { type: "openui5.chart.Axis", multiple: true },
-          items: { type: "sap.ui.core.Item", multiple: true }
+          series: { type: "openui5.chart.Series", multiple: true }
         },
-        defaultAggregation: "items"
+        defaultAggregation: "series"
       },
 
       _fWidth: 0,
@@ -51,15 +51,6 @@ sap.ui.define(
         ResizeHandler.deregister(this._sResizeHandlerId);
       },
 
-      // без этого связывается только 100 элементов
-      bindAggregation: function(sName, oBindingInfo) {
-        if (!oBindingInfo.length) oBindingInfo.length = 1000000; // Max number of lines to display
-        return sap.ui.core.Control.prototype.bindAggregation.apply(
-          this,
-          arguments
-        ); //call superclass
-      },
-
       setPadding: function(sPadding) {
         var aPadding = sPadding.split(" ");
         var iPaddingLength = aPadding.length;
@@ -81,8 +72,9 @@ sap.ui.define(
         if (svg.empty()) {
           svg = div.append("svg");
         }
+        
+        svg.selectAll("*").remove();
 
-        var aItems = this.getItems();
         var aXAxes = this.getXAxes();
         var aYAxes = this.getYAxes();
 
@@ -102,23 +94,34 @@ sap.ui.define(
         svg.attr("width", fWidth);
         svg.attr("height", fHeight);
 
+        var aSeries = this.getSeries();
+		if (!aSeries.length) {
+			return;
+		}
+		
+		var iLength = d3.max(aSeries, function(e) {
+			return e.getItems().length;
+		});
+		
         var scaleX = this._scaleX
-          .domain([0, aItems.length - 1])
+          .domain([0, iLength - 1])
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
-        var fMin = d3.min(aItems, function(e) {
-          return +e.getText();
+        var fMin = d3.min(aSeries, function(oSeries) {
+          return d3.min(oSeries.getItems(), function(e) {
+	          return +e.getText();
+	        });
         });
 
-        var fMax = d3.max(aItems, function(e) {
-          return +e.getText();
+        var fMax = d3.max(aSeries, function(oSeries) {
+          return d3.max(oSeries.getItems(), function(e) {
+	          return +e.getText();
+	        });
         });
 
         var scaleY = this._scaleY
           .domain([fMin, fMax])
           .range([fPaddingTop + fPlotAreaHeight, fPaddingTop]);
-
-        svg.selectAll("*").remove();
 
         // inserting axisY
         if(aYAxes.length) {
@@ -137,22 +140,24 @@ sap.ui.define(
         }
         
         // inserting line series
-        svg
-          .append("path")
-          .datum(aItems)
-          .attr("fill", "none")
-          .attr("stroke", "black")
-          .attr(
-            "d",
-            d3
-              .line()
-              .x(function(e, i) {
-                return scaleX(i);
-              })
-              .y(function(e) {
-                return scaleY(+e.getText());
-              })
-          );
+        for (var i = 0; i < aSeries.length; i++) {
+	        svg
+	          .append("path")
+	          .datum(aSeries[i].getItems())
+	          .attr("fill", "none")
+	          .attr("stroke", "black")
+	          .attr(
+	            "d",
+	            d3
+	              .line()
+	              .x(function(e, i) {
+	                return scaleX(i);
+	              })
+	              .y(function(e) {
+	                return scaleY(+e.getText());
+	              })
+	          );
+        }
       },
 
       _onResize: function(oEvent) {
