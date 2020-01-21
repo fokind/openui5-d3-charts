@@ -144,25 +144,26 @@ sap.ui.define(
         
         // inserting line series
         for (var i = 0; i < aSeries.length; i++) {
-        	var sId = aSeries[i].getId();
-	        svg
-	          .append("g")
-	          .attr("id", sId)
-	          .attr("data-sap-ui", sId)
-	          .append("path")
-	          .datum(aSeries[i].getItems())
-	          .classed("oChartChart" + (i + 1), true) // классы нумеруются с 1
-	          .attr(
-	            "d",
-	            d3
-	              .line()
-	              .x(function(e) {
-	                return scaleX(moment(e.getKey()).toDate());
-	              })
-	              .y(function(e) {
-	                return scaleY(+e.getText());
-	              })
-	          );
+        	aSeries[i]._draw();
+        	// var sId = aSeries[i].getId();
+	        // svg
+	        //   .append("g")
+	        //   .attr("id", sId)
+	        //   .attr("data-sap-ui", sId)
+	        //   .append("path")
+	        //   .datum(aSeries[i].getItems())
+	        //   .classed("oChartChart" + (i + 1), true) // классы нумеруются с 1
+	        //   .attr(
+	        //     "d",
+	        //     d3
+	        //       .line()
+	        //       .x(function(e) {
+	        //         return scaleX(moment(e.getKey()).toDate());
+	        //       })
+	        //       .y(function(e) {
+	        //         return scaleY(+e.getText());
+	        //       })
+	        //   );
         }
       },
 

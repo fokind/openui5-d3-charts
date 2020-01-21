@@ -1,6 +1,4 @@
-/* global d3 */
-
-sap.ui.define(["sap/ui/core/Control", "sap/ui/core/Item", "./library", "./thirdparty/d3"], function(
+sap.ui.define(["sap/ui/core/Control", "sap/ui/core/Item", "./library"], function(
   Control
 ) {
   "use strict";
@@ -23,6 +21,10 @@ sap.ui.define(["sap/ui/core/Control", "sap/ui/core/Item", "./library", "./thirdp
         ); //call superclass
       },
 
-    renderer: {}
+    renderer: {},
+    
+    _draw: function() {
+    	// abstract
+    }
   });
 });

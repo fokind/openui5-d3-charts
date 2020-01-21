@@ -9,16 +9,16 @@
       <chart:Chart 
         padding="10 10 5 5">
       	<chart:series>
-      		<chart:Series items="{/data}" >
+      		<chart:LineSeries items="{/data}" >
 		      	<chart:items>
 		      		<core:Item key="{x}" text="{a}"/>
 		      	</chart:items>
-      		</chart:Series>
-      		<chart:Series items="{/data}" >
+      		</chart:LineSeries>
+      		<chart:LineSeries items="{/data}" >
 		      	<chart:items>
 		      		<core:Item key="{x}" text="{b}"/>
 		      	</chart:items>
-      		</chart:Series>
+      		</chart:LineSeries>
       	</chart:series>
         <chart:xAxes>
         	<chart:Axis size="20"/>
