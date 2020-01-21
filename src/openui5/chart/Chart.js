@@ -1,4 +1,4 @@
-/* global d3 */
+/* global d3 moment */
 
 sap.ui.define(
   [
@@ -7,6 +7,7 @@ sap.ui.define(
     "openui5/chart/Axis",
     "openui5/chart/Series",
     "./thirdparty/d3",
+    "./thirdparty/moment-with-locales",
     "./library"
   ],
   function(Control, ResizeHandler) {
@@ -37,7 +38,7 @@ sap.ui.define(
 
       _sResizeHandlerId: null,
 
-      _scaleX: d3.scaleLinear(),
+      _scaleX: d3.scaleTime(),
       _scaleY: d3.scaleLinear(),
 
       init: function() {
@@ -103,24 +104,20 @@ sap.ui.define(
 			return e.getItems().length;
 		});
 		
+		var aMergedItems = d3.merge(aSeries.map(function(e) {
+			return e.getItems();
+		}));
+		
         var scaleX = this._scaleX
-          .domain([0, iLength - 1])
+          .domain(d3.extent(aMergedItems, function(e) {
+          	return moment(e.getKey()).toDate();
+          }))
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
-        var fMin = d3.min(aSeries, function(oSeries) {
-          return d3.min(oSeries.getItems(), function(e) {
-	          return +e.getText();
-	        });
-        });
-
-        var fMax = d3.max(aSeries, function(oSeries) {
-          return d3.max(oSeries.getItems(), function(e) {
-	          return +e.getText();
-	        });
-        });
-
         var scaleY = this._scaleY
-          .domain([fMin, fMax])
+          .domain(d3.extent(aMergedItems, function(e) {
+          	return +e.getText();
+          }))
           .range([fPaddingTop + fPlotAreaHeight, fPaddingTop]);
 
         // inserting axisY
@@ -150,8 +147,8 @@ sap.ui.define(
 	            "d",
 	            d3
 	              .line()
-	              .x(function(e, i) {
-	                return scaleX(i);
+	              .x(function(e) {
+	                return scaleX(moment(e.getKey()).toDate());
 	              })
 	              .y(function(e) {
 	                return scaleY(+e.getText());

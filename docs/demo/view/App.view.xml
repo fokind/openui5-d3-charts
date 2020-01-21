@@ -11,12 +11,12 @@
       	<chart:series>
       		<chart:Series items="{/data}" >
 		      	<chart:items>
-		      		<core:Item text="{a}"/>
+		      		<core:Item key="{x}" text="{a}"/>
 		      	</chart:items>
       		</chart:Series>
       		<chart:Series items="{/data}" >
 		      	<chart:items>
-		      		<core:Item text="{b}"/>
+		      		<core:Item key="{x}" text="{b}"/>
 		      	</chart:items>
       		</chart:Series>
       	</chart:series>
