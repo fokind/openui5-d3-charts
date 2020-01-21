@@ -108,9 +108,35 @@ sap.ui.define(
 			return e.getItems();
 		}));
 		
+		// оставить уникальные
+		// var iPeriod = _(aSeries.map(function(e) {
+			// return e.getItems();
+		// })).union().sortBy().map(function(e) { return moment(e); }).run()
+		// .reduce(function(accumulator, currentValue, index, array) {
+			// if (!index) {
+			// 	return 0;
+			// }
+			// var d = currentValue.diff(array[index - 1]);
+			// if (!accumulator) {
+			// 	return d;
+			// }
+			// return Math.min(accumulator, d);
+		// }, 0);
+		// добавить редукцию
+		// вернуть минимальное расстояние между соседними точками
+		
+		var iPeriod = 86400000; // UNDONE только для примера с датой
+		
+		var aTimeDomain = d3.extent(aMergedItems, function(e) {
+          	return moment(e.getKey());
+          });
+          
+        aTimeDomain[0].add(-iPeriod / 2, "ms");
+        aTimeDomain[1].add(iPeriod / 2, "ms");
+		
         var scaleX = this._scaleX
-          .domain(d3.extent(aMergedItems, function(e) {
-          	return moment(e.getKey()).toDate();
+          .domain(aTimeDomain.map(function(e) {
+          	return e.toDate();
           }))
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
@@ -145,25 +171,6 @@ sap.ui.define(
         // inserting line series
         for (var i = 0; i < aSeries.length; i++) {
         	aSeries[i]._draw();
-        	// var sId = aSeries[i].getId();
-	        // svg
-	        //   .append("g")
-	        //   .attr("id", sId)
-	        //   .attr("data-sap-ui", sId)
-	        //   .append("path")
-	        //   .datum(aSeries[i].getItems())
-	        //   .classed("oChartChart" + (i + 1), true) // классы нумеруются с 1
-	        //   .attr(
-	        //     "d",
-	        //     d3
-	        //       .line()
-	        //       .x(function(e) {
-	        //         return scaleX(moment(e.getKey()).toDate());
-	        //       })
-	        //       .y(function(e) {
-	        //         return scaleY(+e.getText());
-	        //       })
-	        //   );
         }
       },
 

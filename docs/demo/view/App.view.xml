@@ -14,11 +14,11 @@
 		      		<core:Item key="{x}" text="{a}"/>
 		      	</chart:items>
       		</chart:LineSeries>
-      		<chart:LineSeries items="{/data}" >
+      		<chart:BarSeries items="{/data}" >
 		      	<chart:items>
 		      		<core:Item key="{x}" text="{b}"/>
 		      	</chart:items>
-      		</chart:LineSeries>
+      		</chart:BarSeries>
       	</chart:series>
         <chart:xAxes>
         	<chart:Axis size="20"/>
