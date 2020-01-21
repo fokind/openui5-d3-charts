@@ -1,4 +1,8 @@
 specVersion: "1.0"
 metadata:
   name: openui5-charts
+  copyright: |-
+    openui5-charts
+     * (c) Copyright 2019-${currentYear} Dmitry Fokin
+     * Licensed under the MIT license. See LICENSE file in the project root for full license information.
 type: library

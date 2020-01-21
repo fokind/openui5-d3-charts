@@ -73,7 +73,7 @@ sap.ui.define(
         if (svg.empty()) {
           svg = div.append("svg");
         }
-        
+
         svg.selectAll("*").remove();
 
         var aXAxes = this.getXAxes();
@@ -82,95 +82,113 @@ sap.ui.define(
         var fWidth = this._fWidth;
         var fHeight = this._fHeight;
         var fPaddingTop = this._fPaddingTop;
-        var fPaddingLeft = this._fPaddingLeft + aYAxes.map(function(e) { return e.getSize(); }).reduce(function(a, b) {
-        	return a + b;
-        }, 0);
+        var fPaddingLeft =
+          this._fPaddingLeft +
+          aYAxes
+            .map(function(e) {
+              return e.getSize();
+            })
+            .reduce(function(a, b) {
+              return a + b;
+            }, 0);
         // UNDONE a padding and a shift border of plot area are not same
         var fPaddingRight = this._fPaddingRight;
-        var fPaddingBottom = this._fPaddingBottom + aXAxes.map(function(e) { return e.getSize(); }).reduce(function(a, b) {
-        	return a + b;
-        }, 0);
+        var fPaddingBottom =
+          this._fPaddingBottom +
+          aXAxes
+            .map(function(e) {
+              return e.getSize();
+            })
+            .reduce(function(a, b) {
+              return a + b;
+            }, 0);
         var fPlotAreaHeight = fHeight - fPaddingTop - fPaddingBottom;
 
         svg.attr("width", fWidth);
         svg.attr("height", fHeight);
 
         var aSeries = this.getSeries();
-		if (!aSeries.length) {
-			return;
-		}
-		
-		var iLength = d3.max(aSeries, function(e) {
-			return e.getItems().length;
-		});
-		
-		var aMergedItems = d3.merge(aSeries.map(function(e) {
-			return e.getItems();
-		}));
-		
-		// оставить уникальные
-		// var iPeriod = _(aSeries.map(function(e) {
-			// return e.getItems();
-		// })).union().sortBy().map(function(e) { return moment(e); }).run()
-		// .reduce(function(accumulator, currentValue, index, array) {
-			// if (!index) {
-			// 	return 0;
-			// }
-			// var d = currentValue.diff(array[index - 1]);
-			// if (!accumulator) {
-			// 	return d;
-			// }
-			// return Math.min(accumulator, d);
-		// }, 0);
-		// добавить редукцию
-		// вернуть минимальное расстояние между соседними точками
-		
-		var iPeriod = 86400000; // UNDONE только для примера с датой
-		
-		var aTimeDomain = d3.extent(aMergedItems, function(e) {
-          	return moment(e.getKey());
-          });
-          
+        if (!aSeries.length) {
+          return;
+        }
+
+        var iLength = d3.max(aSeries, function(e) {
+          return e.getItems().length;
+        });
+
+        var aMergedItems = d3.merge(
+          aSeries.map(function(e) {
+            return e.getItems();
+          })
+        );
+
+        // оставить уникальные
+        // var iPeriod = _(aSeries.map(function(e) {
+        // return e.getItems();
+        // })).union().sortBy().map(function(e) { return moment(e); }).run()
+        // .reduce(function(accumulator, currentValue, index, array) {
+        // if (!index) {
+        // 	return 0;
+        // }
+        // var d = currentValue.diff(array[index - 1]);
+        // if (!accumulator) {
+        // 	return d;
+        // }
+        // return Math.min(accumulator, d);
+        // }, 0);
+        // добавить редукцию
+        // вернуть минимальное расстояние между соседними точками
+
+        var iPeriod = 86400000; // UNDONE только для примера с датой
+
+        var aTimeDomain = d3.extent(aMergedItems, function(e) {
+          return moment(e.getKey());
+        });
+
         aTimeDomain[0].add(-iPeriod / 2, "ms");
         aTimeDomain[1].add(iPeriod / 2, "ms");
-		
+
         var scaleX = this._scaleX
-          .domain(aTimeDomain.map(function(e) {
-          	return e.toDate();
-          }))
+          .domain(
+            aTimeDomain.map(function(e) {
+              return e.toDate();
+            })
+          )
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
         var scaleY = this._scaleY
-          .domain(d3.extent(aMergedItems, function(e) {
-          	return +e.getText();
-          }))
+          .domain(
+            d3.extent(aMergedItems, function(e) {
+              return +e.getText();
+            })
+          )
           .range([fPaddingTop + fPlotAreaHeight, fPaddingTop]);
 
         // inserting axisY
-        if(aYAxes.length) {
-        	var sYAxisId = aYAxes[0].getId();
-	        svg
-	          .append("g")
-	          .attr("id", sYAxisId)
-	          .attr("data-sap-ui", sYAxisId)
-	          .attr("transform", `translate(${fPaddingLeft}, 0)`)
-	          .call(d3.axisLeft(this._scaleY));
-		}
+        if (aYAxes.length) {
+          var sYAxisId = aYAxes[0].getId();
+          svg
+            .append("g")
+            .attr("id", sYAxisId)
+            .attr("data-sap-ui", sYAxisId)
+            .attr("transform", `translate(${fPaddingLeft}, 0)`)
+            .call(d3.axisLeft(this._scaleY));
+        }
 
         // inserting axisX
-        if(aXAxes.length) {
-        	var sXAxisId = aXAxes[0].getId();
-	        svg
-	          .append("g")
-	          .attr("id", sXAxisId)
-	          .attr("data-sap-ui", sXAxisId)
-	          .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
-	          .call(d3.axisBottom(this._scaleX));
+        if (aXAxes.length) {
+          var sXAxisId = aXAxes[0].getId();
+          svg
+            .append("g")
+            .attr("id", sXAxisId)
+            .attr("data-sap-ui", sXAxisId)
+            .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
+            .call(d3.axisBottom(this._scaleX));
         }
-        
+
         // inserting line series
         for (var i = 0; i < aSeries.length; i++) {
-        	aSeries[i]._draw();
+          aSeries[i]._draw();
         }
       },
 

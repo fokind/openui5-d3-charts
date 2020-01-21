@@ -1,16 +1,16 @@
-sap.ui.define(["sap/ui/core/Control", "sap/ui/core/Item", "./library"], function(
-  Control
-) {
-  "use strict";
+sap.ui.define(
+  ["sap/ui/core/Control", "sap/ui/core/Item", "./library"],
+  function(Control) {
+    "use strict";
 
-  return Control.extend("openui5.chart.Series", {
-    metadata: {
-      library: "openui5.chart",
+    return Control.extend("openui5.chart.Series", {
+      metadata: {
+        library: "openui5.chart",
         aggregations: {
           items: { type: "sap.ui.core.Item", multiple: true }
         },
         defaultAggregation: "items"
-    },
+      },
 
       // без этого связывается только 100 элементов
       bindAggregation: function(sName, oBindingInfo) {
@@ -21,10 +21,11 @@ sap.ui.define(["sap/ui/core/Control", "sap/ui/core/Item", "./library"], function
         ); //call superclass
       },
 
-    renderer: {},
-    
-    _draw: function() {
-    	// abstract
-    }
-  });
-});
+      renderer: {},
+
+      _draw: function() {
+        // abstract
+      }
+    });
+  }
+);

@@ -6,25 +6,26 @@
   <App>
     <Page enableScrolling="false" 
       showHeader="false">
-      <chart:Chart 
-        padding="10 10 5 5">
-      	<chart:series>
-      		<chart:LineSeries items="{/data}" >
-		      	<chart:items>
-		      		<core:Item key="{x}" text="{a}"/>
-		      	</chart:items>
-      		</chart:LineSeries>
-      		<chart:BarSeries items="{/data}" >
-		      	<chart:items>
-		      		<core:Item key="{x}" text="{b}"/>
-		      	</chart:items>
-      		</chart:BarSeries>
-      	</chart:series>
+      <chart:Chart padding="10 10 5 5">
+        <chart:series>
+          <chart:LineSeries items="{/data}">
+            <chart:items>
+              <core:Item key="{x}" 
+                text="{a}"/>
+            </chart:items>
+          </chart:LineSeries>
+          <chart:BarSeries items="{/data}">
+            <chart:items>
+              <core:Item key="{x}" 
+                text="{b}"/>
+            </chart:items>
+          </chart:BarSeries>
+        </chart:series>
         <chart:xAxes>
-        	<chart:Axis size="20"/>
+          <chart:Axis size="20"/>
         </chart:xAxes>
         <chart:yAxes>
-        	<chart:Axis size="30"/>
+          <chart:Axis size="30"/>
         </chart:yAxes>
       </chart:Chart>
     </Page>
