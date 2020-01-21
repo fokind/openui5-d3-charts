@@ -122,23 +122,33 @@ sap.ui.define(
 
         // inserting axisY
         if(aYAxes.length) {
+        	var sYAxisId = aYAxes[0].getId();
 	        svg
 	          .append("g")
+	          .attr("id", sYAxisId)
+	          .attr("data-sap-ui", sYAxisId)
 	          .attr("transform", `translate(${fPaddingLeft}, 0)`)
 	          .call(d3.axisLeft(this._scaleY));
 		}
 
         // inserting axisX
         if(aXAxes.length) {
+        	var sXAxisId = aXAxes[0].getId();
 	        svg
 	          .append("g")
+	          .attr("id", sXAxisId)
+	          .attr("data-sap-ui", sXAxisId)
 	          .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
 	          .call(d3.axisBottom(this._scaleX));
         }
         
         // inserting line series
         for (var i = 0; i < aSeries.length; i++) {
+        	var sId = aSeries[i].getId();
 	        svg
+	          .append("g")
+	          .attr("id", sId)
+	          .attr("data-sap-ui", sId)
 	          .append("path")
 	          .datum(aSeries[i].getItems())
 	          .attr("fill", "none")
