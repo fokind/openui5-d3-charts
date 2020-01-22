@@ -1,7 +1,12 @@
 /* global d3 moment */
 
 sap.ui.define(
-  ["openui5/chart/Series", "./library", "./thirdparty/d3", "./thirdparty/moment-with-locales"],
+  [
+    "openui5/chart/Series",
+    "./library",
+    "./thirdparty/d3",
+    "./thirdparty/moment-with-locales"
+  ],
   function(Series) {
     "use strict";
 
@@ -23,9 +28,12 @@ sap.ui.define(
         var scaleY = oParent._scaleY;
 
         var sId = this.getId();
-        var fStep = Math.abs(scaleX(moment(aItems[1].getKey()).toDate()) - scaleX(moment(aItems[0].getKey()).toDate()));
+        var fStep = Math.abs(
+          scaleX(moment(aItems[1].getKey()).toDate()) -
+            scaleX(moment(aItems[0].getKey()).toDate())
+        );
         var fBandPadding = this.getPadding();
-        var fBandWidth = fStep * (1- fBandPadding);
+        var fBandWidth = fStep * (1 - fBandPadding);
 
         svg
           .append("g")
@@ -36,12 +44,9 @@ sap.ui.define(
           .join("rect")
           .classed("oChartRect", true)
           .classed("oChartFill" + (iIndex + 1), true) // классы нумеруются с 1
-          .attr(
-            "x",
-            function(e) {
-              return scaleX(moment(e.getKey()).toDate()) - fBandWidth * 0.5;
-            }
-          )
+          .attr("x", function(e) {
+            return scaleX(moment(e.getKey()).toDate()) - fBandWidth * 0.5;
+          })
           .attr("y", function(e) {
             return scaleY(+e.getText());
           })
