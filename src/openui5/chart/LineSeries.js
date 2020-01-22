@@ -23,7 +23,8 @@ sap.ui.define(
           .attr("data-sap-ui", sId)
           .append("path")
           .datum(aItems)
-          .classed("oChartChart" + (iIndex + 1), true) // классы нумеруются с 1
+          .classed("oChartLine", true)
+          .classed("oChartStroke" + (iIndex + 1), true) // классы нумеруются с 1
           .attr(
             "d",
             d3

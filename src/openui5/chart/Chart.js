@@ -38,6 +38,7 @@ sap.ui.define(
 
       _sResizeHandlerId: null,
 
+      _scaleBand: d3.scaleBand(),
       _scaleX: d3.scaleTime(),
       _scaleY: d3.scaleLinear(),
 
@@ -116,44 +117,30 @@ sap.ui.define(
           return e.getItems().length;
         });
 
+        if (iLength <= 1) {
+          return;
+        }
+        
         var aMergedItems = d3.merge(
           aSeries.map(function(e) {
             return e.getItems();
           })
         );
 
-        // оставить уникальные
-        // var iPeriod = _(aSeries.map(function(e) {
-        // return e.getItems();
-        // })).union().sortBy().map(function(e) { return moment(e); }).run()
-        // .reduce(function(accumulator, currentValue, index, array) {
-        // if (!index) {
-        // 	return 0;
-        // }
-        // var d = currentValue.diff(array[index - 1]);
-        // if (!accumulator) {
-        // 	return d;
-        // }
-        // return Math.min(accumulator, d);
-        // }, 0);
-        // добавить редукцию
-        // вернуть минимальное расстояние между соседними точками
-
-        var iPeriod = 86400000; // UNDONE только для примера с датой
-
-        var aTimeDomain = d3.extent(aMergedItems, function(e) {
-          return moment(e.getKey());
+        var aXs = aSeries[0].getItems().map(function(e) { // UNDONE берет из первой серии
+        	return moment(e.getKey()).toDate();
         });
-
-        aTimeDomain[0].add(-iPeriod / 2, "ms");
-        aTimeDomain[1].add(iPeriod / 2, "ms");
-
+        
+        // var interval = d3
+        //   .timeDay
+        //   .every(1)
+        //   .range([d3.min(aXs), moment(d3.max(aXs)).add(1).toDate()]);
+        
+        var iPeriod = moment(aXs[1]).diff(aXs[0]); // UNDONE берет первый период из первой серии данных
         var scaleX = this._scaleX
-          .domain(
-            aTimeDomain.map(function(e) {
-              return e.toDate();
-            })
-          )
+          .domain([d3.min(aXs), moment(d3.max(aXs)).add(1, "d").toDate()])
+          //.ticks(d3.timeDay.every(1))
+          //.nice()
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
         var scaleY = this._scaleY
@@ -183,7 +170,10 @@ sap.ui.define(
             .attr("id", sXAxisId)
             .attr("data-sap-ui", sXAxisId)
             .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
-            .call(d3.axisBottom(this._scaleX));
+            .call(d3.axisBottom(this._scaleX).ticks(d3
+              .timeDay
+              .every(1))
+            );
         }
 
         // inserting line series

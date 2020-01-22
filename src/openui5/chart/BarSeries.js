@@ -17,24 +17,30 @@ sap.ui.define(
         var scaleY = oParent._scaleY;
 
         var sId = this.getId();
+        var fStep = scaleX(moment(aItems[1].getKey()).toDate()) - scaleX(moment(aItems[0].getKey()).toDate());
+
         svg
           .append("g")
           .attr("id", sId)
           .attr("data-sap-ui", sId)
-          .append("path")
-          .datum(aItems)
-          .classed("oChartChart" + (iIndex + 1), true) // классы нумеруются с 1
+          .selectAll("rect")
+          .data(aItems)
+          .join("rect")
+          .classed("oChartRect", true)
+          .classed("oChartFill" + (iIndex + 1), true) // классы нумеруются с 1
           .attr(
-            "d",
-            d3
-              .line()
-              .x(function(e) {
-                return scaleX(moment(e.getKey()).toDate());
-              })
-              .y(function(e) {
-                return scaleY(+e.getText());
-              })
-          );
+            "x",
+            function(e) {
+              return scaleX(moment(e.getKey()).toDate());
+            }
+          )
+          .attr("y", function(e) {
+            return scaleY(+e.getText());
+          })
+          .attr("height", function(e) {
+            return Math.abs(scaleY(0) - scaleY(+e.getText()));
+          })
+          .attr("width", Math.abs(fStep * 0.5));
       }
     });
   }
