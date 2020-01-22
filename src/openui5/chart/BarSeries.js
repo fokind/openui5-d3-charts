@@ -1,7 +1,7 @@
-/* global d3 */
+/* global d3 moment */
 
 sap.ui.define(
-  ["openui5/chart/Series", "./library", "./thirdparty/d3"],
+  ["openui5/chart/Series", "./library", "./thirdparty/d3", "./thirdparty/moment-with-locales"],
   function(Series) {
     "use strict";
 
@@ -39,7 +39,7 @@ sap.ui.define(
           .attr(
             "x",
             function(e) {
-              return scaleX(moment(e.getKey()).toDate()) + fStep * fBandPadding * 0.5;
+              return scaleX(moment(e.getKey()).toDate()) - fBandWidth * 0.5;
             }
           )
           .attr("y", function(e) {

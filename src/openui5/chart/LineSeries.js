@@ -1,7 +1,7 @@
-/* global d3 */
+/* global d3 moment */
 
 sap.ui.define(
-  ["openui5/chart/Series", "./library", "./thirdparty/d3"],
+  ["openui5/chart/Series", "./library", "./thirdparty/d3", "./thirdparty/moment-with-locales"],
   function(Series) {
     "use strict";
 
@@ -17,7 +17,6 @@ sap.ui.define(
         var scaleY = oParent._scaleY;
 
         var sId = this.getId();
-        var fStep = Math.abs(scaleX(moment(aItems[1].getKey()).toDate()) - scaleX(moment(aItems[0].getKey()).toDate()));
 
         svg
           .append("g")
@@ -32,7 +31,7 @@ sap.ui.define(
             d3
               .line()
               .x(function(e) {
-                return scaleX(moment(e.getKey()).toDate()) + fStep * 0.5;
+                return scaleX(moment(e.getKey()).toDate());
               })
               .y(function(e) {
                 return scaleY(+e.getText());

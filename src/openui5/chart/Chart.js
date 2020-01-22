@@ -40,7 +40,6 @@ sap.ui.define(
 
       _sResizeHandlerId: null,
 
-      _scaleBand: d3.scaleBand(),
       _scaleX: d3.scaleTime(),
       _scaleY: d3.scaleLinear(),
 
@@ -169,7 +168,7 @@ sap.ui.define(
         
         var iPeriod = moment(aXs[1]).diff(aXs[0]); // UNDONE берет первый период из первой серии данных
         var scaleX = this._scaleX
-          .domain([d3.min(aXs), moment(d3.max(aXs)).add(1, "d").toDate()])
+          .domain([moment(d3.min(aXs)).add(-iPeriod * 0.5).toDate(), moment(d3.max(aXs)).add(iPeriod * 0.5).toDate()])
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
         var scaleY = this._scaleY
