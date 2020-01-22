@@ -12,14 +12,16 @@ sap.ui.define(
   ],
   function(Control, ResizeHandler) {
     "use strict";
-
+    
     return Control.extend("openui5.chart.Chart", {
       metadata: {
         library: "openui5.chart",
         properties: {
           height: { type: "string", defaultValue: "100%" },
           width: { type: "string", defaultValue: "100%" },
-          padding: { type: "string", defaultValue: "0" }
+          padding: { type: "string", defaultValue: "0" },
+          period: { type: "float", defaultValue: 1 },
+          periodUnits: { type: "string", defaultValue: "days" },
         },
         aggregations: {
           xAxes: { type: "openui5.chart.Axis", multiple: true },
@@ -66,7 +68,41 @@ sap.ui.define(
 
         this.setProperty("padding", sPadding);
       },
-
+      
+      _getTicksInterval: function() {
+      	var sUnits = this.getPeriodUnits();
+      	var oInterval;
+      	
+      	switch (sUnits) {
+      		case "s", "seconds":
+      			oInterval = d3.timeSecond;
+      			break;
+      		case "m", "minutes":
+      			oInterval = d3.timeMinute;
+      			break;
+      		case "h", "hours":
+      			oInterval = d3.timeHour;
+      			break;
+      		case "d", "days":
+      			oInterval = d3.timeDay;
+      			break;
+      		case "w", "weeks":
+      			oInterval = d3.timeWeek;
+      			break;
+      		case "M", "months":
+      			oInterval = d3.timeMonth;
+      			break;
+      		case "y", "years":
+      			oInterval = d3.timeYear;
+      			break;
+      		default:
+      			oInterval = d3.timeMillisecond;
+      			break;
+      	}
+      	
+      	return oInterval.every(this.getPeriod());
+      },
+      
       _draw: function() {
         var div = d3.select("#" + this.getId());
         var svg = div.select("svg");
@@ -131,16 +167,9 @@ sap.ui.define(
         	return moment(e.getKey()).toDate();
         });
         
-        // var interval = d3
-        //   .timeDay
-        //   .every(1)
-        //   .range([d3.min(aXs), moment(d3.max(aXs)).add(1).toDate()]);
-        
         var iPeriod = moment(aXs[1]).diff(aXs[0]); // UNDONE берет первый период из первой серии данных
         var scaleX = this._scaleX
           .domain([d3.min(aXs), moment(d3.max(aXs)).add(1, "d").toDate()])
-          //.ticks(d3.timeDay.every(1))
-          //.nice()
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
         var scaleY = this._scaleY
@@ -162,6 +191,7 @@ sap.ui.define(
             .call(d3.axisLeft(this._scaleY));
         }
 
+        // перевести tickInterval
         // inserting axisX
         if (aXAxes.length) {
           var sXAxisId = aXAxes[0].getId();
@@ -170,9 +200,7 @@ sap.ui.define(
             .attr("id", sXAxisId)
             .attr("data-sap-ui", sXAxisId)
             .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
-            .call(d3.axisBottom(this._scaleX).ticks(d3
-              .timeDay
-              .every(1))
+            .call(d3.axisBottom(this._scaleX).ticks(this._getTicksInterval())
             );
         }
 

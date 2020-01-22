@@ -8,18 +8,18 @@
       showHeader="false">
       <chart:Chart padding="10 10 5 5">
         <chart:series>
-          <chart:LineSeries items="{/data}">
-            <chart:items>
-              <core:Item key="{x}" 
-                text="{a}"/>
-            </chart:items>
-          </chart:LineSeries>
           <chart:BarSeries items="{/data}">
             <chart:items>
               <core:Item key="{x}" 
                 text="{b}"/>
             </chart:items>
           </chart:BarSeries>
+          <chart:LineSeries items="{/data}">
+            <chart:items>
+              <core:Item key="{x}" 
+                text="{a}"/>
+            </chart:items>
+          </chart:LineSeries>
         </chart:series>
         <chart:xAxes>
           <chart:Axis size="20"/>
