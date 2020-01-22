@@ -6,6 +6,12 @@ sap.ui.define(
     "use strict";
 
     return Series.extend("openui5.chart.BarSeries", {
+      metadata: {
+        properties: {
+          padding: { type: "float", defaultValue: 0.5 }
+        }
+      },
+
       _draw: function() {
         Series.prototype._draw.apply(this);
         var oParent = this.getParent();
@@ -17,7 +23,9 @@ sap.ui.define(
         var scaleY = oParent._scaleY;
 
         var sId = this.getId();
-        var fStep = scaleX(moment(aItems[1].getKey()).toDate()) - scaleX(moment(aItems[0].getKey()).toDate());
+        var fStep = Math.abs(scaleX(moment(aItems[1].getKey()).toDate()) - scaleX(moment(aItems[0].getKey()).toDate()));
+        var fBandPadding = this.getPadding();
+        var fBandWidth = fStep * (1- fBandPadding);
 
         svg
           .append("g")
@@ -31,7 +39,7 @@ sap.ui.define(
           .attr(
             "x",
             function(e) {
-              return scaleX(moment(e.getKey()).toDate());
+              return scaleX(moment(e.getKey()).toDate()) + fStep * fBandPadding * 0.5;
             }
           )
           .attr("y", function(e) {
@@ -40,7 +48,7 @@ sap.ui.define(
           .attr("height", function(e) {
             return Math.abs(scaleY(0) - scaleY(+e.getText()));
           })
-          .attr("width", Math.abs(fStep * 0.5));
+          .attr("width", fBandWidth);
       }
     });
   }
