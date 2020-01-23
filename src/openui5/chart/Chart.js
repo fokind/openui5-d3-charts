@@ -1,4 +1,4 @@
-/* global d3 moment */
+/* global d3 */
 
 sap.ui.define(
   [
@@ -7,7 +7,6 @@ sap.ui.define(
     "openui5/chart/Axis",
     "openui5/chart/Series",
     "./thirdparty/d3",
-    "./thirdparty/moment-with-locales",
     "./library"
   ],
   function(Control, ResizeHandler) {
@@ -19,7 +18,8 @@ sap.ui.define(
         properties: {
           height: { type: "string", defaultValue: "100%" },
           width: { type: "string", defaultValue: "100%" },
-          padding: { type: "string", defaultValue: "0" }
+          padding: { type: "string", defaultValue: "0" },
+          bandPadding: { type: "float", defaultValue: 0.5 }
         },
         aggregations: {
           xAxes: { type: "openui5.chart.Axis", multiple: true },
@@ -38,7 +38,6 @@ sap.ui.define(
 
       _sResizeHandlerId: null,
 
-      //_scaleX: d3.scaleTime(),
       _scaleX: d3.scaleBand(),
       _scaleY: d3.scaleLinear(),
 
@@ -126,9 +125,11 @@ sap.ui.define(
             return e.getItems();
           })
         );
-
+        
+		var fBandPadding = this.getBandPadding();
         var scaleX = this._scaleX
           .domain(aXs)
+          .padding(fBandPadding)
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
         var scaleY = this._scaleY
@@ -138,6 +139,11 @@ sap.ui.define(
             })
           )
           .range([fPaddingTop + fPlotAreaHeight, fPaddingTop]);
+
+        // inserting series
+        for (var i = 0; i < aSeries.length; i++) {
+          aSeries[i]._draw();
+        }
 
         // inserting axisY
         if (aYAxes.length) {
@@ -160,11 +166,6 @@ sap.ui.define(
             .attr("data-sap-ui", sXAxisId)
             .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
             .call(d3.axisBottom(this._scaleX));
-        }
-
-        // inserting line series
-        for (var i = 0; i < aSeries.length; i++) {
-          aSeries[i]._draw();
         }
       },
 

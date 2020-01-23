@@ -8,17 +8,17 @@
       showHeader="false">
       <chart:Chart padding="10 10 5 5">
         <chart:series>
+          <chart:ColumnSeries items="{/data}">
+            <core:Item key="{x}" 
+              text="{a}"/>
+          </chart:ColumnSeries>
+          <chart:ColumnSeries items="{/data}">
+            <core:Item key="{x}" 
+              text="{b}"/>
+          </chart:ColumnSeries>
           <chart:LineSeries items="{/data}">
-            <chart:items>
-              <core:Item key="{x}" 
-                text="{b}"/>
-            </chart:items>
-          </chart:LineSeries>
-          <chart:LineSeries items="{/data}">
-            <chart:items>
-              <core:Item key="{x}" 
-                text="{a}"/>
-            </chart:items>
+            <core:Item key="{x}" 
+              text="{a}"/>
           </chart:LineSeries>
         </chart:series>
         <chart:xAxes>

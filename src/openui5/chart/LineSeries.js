@@ -1,11 +1,10 @@
-/* global d3 moment */
+/* global d3 */
 
 sap.ui.define(
   [
     "openui5/chart/Series",
     "./library",
-    "./thirdparty/d3",
-    "./thirdparty/moment-with-locales"
+    "./thirdparty/d3"
   ],
   function(Series) {
     "use strict";
