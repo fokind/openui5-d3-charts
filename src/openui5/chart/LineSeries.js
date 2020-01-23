@@ -20,6 +20,7 @@ sap.ui.define(
         var iIndex = oParent.getSeries().indexOf(this);
         var scaleX = oParent._scaleX;
         var scaleY = oParent._scaleY;
+        var fHalfBandwidth = scaleX.bandwidth() * 0.5; // это для типа шкалы band
 
         var sId = this.getId();
 
@@ -36,7 +37,7 @@ sap.ui.define(
             d3
               .line()
               .x(function(e) {
-                return scaleX(moment(e.getKey()).toDate());
+                return scaleX(e.getKey()) + fHalfBandwidth;
               })
               .y(function(e) {
                 return scaleY(+e.getText());

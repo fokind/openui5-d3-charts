@@ -38,7 +38,8 @@ sap.ui.define(
 
       _sResizeHandlerId: null,
 
-      _scaleX: d3.scaleTime(),
+      //_scaleX: d3.scaleTime(),
+      _scaleX: d3.scaleBand(),
       _scaleY: d3.scaleLinear(),
 
       init: function() {
@@ -112,11 +113,11 @@ sap.ui.define(
           return;
         }
 
-        var iLength = d3.max(aSeries, function(e) {
-          return e.getItems().length;
-        });
+		var aXs = aSeries[0].getItems().map(function(e) {
+			return e.getKey();
+		});
 
-        if (iLength <= 1) {
+       if (aXs.length <= 1) {
           return;
         }
 
@@ -127,9 +128,7 @@ sap.ui.define(
         );
 
         var scaleX = this._scaleX
-          .domain(d3.extent(aMergedItems, function(e) {
-            return moment(e.getKey()).toDate();
-          }))
+          .domain(aXs)
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
         var scaleY = this._scaleY
