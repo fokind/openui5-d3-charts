@@ -8,12 +8,12 @@
       showHeader="false">
       <chart:Chart padding="10 10 5 5">
         <chart:series>
-          <chart:BarSeries items="{/data}">
+          <chart:LineSeries items="{/data}">
             <chart:items>
               <core:Item key="{x}" 
                 text="{b}"/>
             </chart:items>
-          </chart:BarSeries>
+          </chart:LineSeries>
           <chart:LineSeries items="{/data}">
             <chart:items>
               <core:Item key="{x}" 

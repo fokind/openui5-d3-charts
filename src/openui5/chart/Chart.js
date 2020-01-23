@@ -19,9 +19,7 @@ sap.ui.define(
         properties: {
           height: { type: "string", defaultValue: "100%" },
           width: { type: "string", defaultValue: "100%" },
-          padding: { type: "string", defaultValue: "0" },
-          period: { type: "float", defaultValue: 1 },
-          periodUnits: { type: "string", defaultValue: "days" }
+          padding: { type: "string", defaultValue: "0" }
         },
         aggregations: {
           xAxes: { type: "openui5.chart.Axis", multiple: true },
@@ -66,40 +64,6 @@ sap.ui.define(
         ];
 
         this.setProperty("padding", sPadding);
-      },
-
-      _getTicksInterval: function() {
-        var sUnits = this.getPeriodUnits();
-        var oInterval;
-
-        switch (sUnits) {
-          case ("s", "seconds"):
-            oInterval = d3.timeSecond;
-            break;
-          case ("m", "minutes"):
-            oInterval = d3.timeMinute;
-            break;
-          case ("h", "hours"):
-            oInterval = d3.timeHour;
-            break;
-          case ("d", "days"):
-            oInterval = d3.timeDay;
-            break;
-          case ("w", "weeks"):
-            oInterval = d3.timeWeek;
-            break;
-          case ("M", "months"):
-            oInterval = d3.timeMonth;
-            break;
-          case ("y", "years"):
-            oInterval = d3.timeYear;
-            break;
-          default:
-            oInterval = d3.timeMillisecond;
-            break;
-        }
-
-        return oInterval.every(this.getPeriod());
       },
 
       _draw: function() {
@@ -162,21 +126,10 @@ sap.ui.define(
           })
         );
 
-        var aXs = aSeries[0].getItems().map(function(e) {
-          // UNDONE берет из первой серии
-          return moment(e.getKey()).toDate();
-        });
-
-        var iPeriod = moment(aXs[1]).diff(aXs[0]); // UNDONE берет первый период из первой серии данных
         var scaleX = this._scaleX
-          .domain([
-            moment(d3.min(aXs))
-              .add(-iPeriod * 0.5)
-              .toDate(),
-            moment(d3.max(aXs))
-              .add(iPeriod * 0.5)
-              .toDate()
-          ])
+          .domain(d3.extent(aMergedItems, function(e) {
+            return moment(e.getKey()).toDate();
+          }))
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
         var scaleY = this._scaleY
@@ -207,7 +160,7 @@ sap.ui.define(
             .attr("id", sXAxisId)
             .attr("data-sap-ui", sXAxisId)
             .attr("transform", `translate(0, ${fPaddingTop + fPlotAreaHeight})`)
-            .call(d3.axisBottom(this._scaleX).ticks(this._getTicksInterval()));
+            .call(d3.axisBottom(this._scaleX));
         }
 
         // inserting line series
