@@ -112,11 +112,11 @@ sap.ui.define(
           return;
         }
 
-		var aXs = aSeries[0].getItems().map(function(e) {
-			return e.getKey();
-		});
+        var aXs = aSeries[0].getItems().map(function(e) {
+          return e.getKey();
+        });
 
-       if (aXs.length <= 1) {
+        if (aXs.length <= 1) {
           return;
         }
 
@@ -125,8 +125,8 @@ sap.ui.define(
             return e.getItems();
           })
         );
-        
-		var fBandPadding = this.getBandPadding();
+
+        var fBandPadding = this.getBandPadding();
         var scaleX = this._scaleX
           .domain(aXs)
           .padding(fBandPadding)

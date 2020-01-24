@@ -1,11 +1,7 @@
 /* global d3 */
 
 sap.ui.define(
-  [
-    "openui5/chart/Series",
-    "./library",
-    "./thirdparty/d3"
-  ],
+  ["openui5/chart/Series", "./library", "./thirdparty/d3"],
   function(Series) {
     "use strict";
 

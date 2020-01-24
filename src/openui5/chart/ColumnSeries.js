@@ -1,11 +1,7 @@
 /* global d3 */
 
 sap.ui.define(
-  [
-    "openui5/chart/Series",
-    "./library",
-    "./thirdparty/d3"
-  ],
+  ["openui5/chart/Series", "./library", "./thirdparty/d3"],
   function(Series) {
     "use strict";
 
@@ -19,7 +15,7 @@ sap.ui.define(
         var aSeries = oParent.getSeries();
         var iIndex = aSeries.indexOf(this);
         var aColumnSeries = aSeries.filter(function(e) {
-        	return e.isA("openui5.chart.ColumnSeries");
+          return e.isA("openui5.chart.ColumnSeries");
         });
         var iColumnSeriesIndex = aColumnSeries.indexOf(this);
         var iColumnSeriesLength = aColumnSeries.length;
@@ -38,7 +34,10 @@ sap.ui.define(
           .classed("oChartRect", true)
           .classed("oChartFill" + (iIndex + 1), true) // классы нумеруются с 1
           .attr("x", function(e) {
-            return scaleX(e.getKey()) + fBandWidth * iColumnSeriesIndex / iColumnSeriesLength;
+            return (
+              scaleX(e.getKey()) +
+              (fBandWidth * iColumnSeriesIndex) / iColumnSeriesLength
+            );
           })
           .attr("y", function(e) {
             return scaleY(+e.getText());

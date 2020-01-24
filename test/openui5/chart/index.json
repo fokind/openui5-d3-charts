@@ -3,23 +3,23 @@
     "icon": "sap-icon://business-objects-experience",
     "name": "Charts",
     "description": "A library wrapping d3.js in UI5 controls to create bindable resposive charts",
-    "source": "https://github.com/fokind/openui5-d3-charts.git",
-    "documentation": "https://github.com/fokind/openui5-d3-charts#readme",
+    "source": "https://github.com/fokind/openui5-charts.git",
+    "documentation": "https://github.com/fokind/openui5-charts#readme",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "content": {
       "Charts": {
         "id": "charts",
         "name": "Charts",
         "type": "control",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "description": "A library wrapping d3.js in UI5 controls to create bindable resposive charts",
         "samples": [
           {
-            "id": "Chart",
-            "name": "Chart",
-            "description": "Chart",
-            "url": "https://fokind.github.io/openui5-d3-charts/demo/index.html"
+            "id": "Charts",
+            "name": "Charts",
+            "description": "Charts",
+            "url": "https://fokind.github.io/openui5-charts/demo/index.html"
           }
         ]
       }
