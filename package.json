@@ -1,12 +1,12 @@
 {
   "name": "openui5-charts",
-  "version": "1.0.0-alpha",
+  "version": "1.0.1-beta",
   "description": "OpenUI5 Charts based on d3.js wrapped into resposive bindable controls",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fokind/openui5-d3-charts"
+    "url": "https://github.com/fokind/openui5-charts"
   },
-  "homepage": "https://github.com/fokind/openui5-d3-charts",
+  "homepage": "https://github.com/fokind/openui5-charts",
   "ui5lab": {
     "namespace": "openui5.charts",
     "icon": "business-objects-experience",
@@ -23,11 +23,15 @@
   },
   "license": "MIT",
   "private": false,
+  "main": "dist/resources/openui5/chart/library-preload.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified. Please add some.\" && exit 1",
     "prepare": "node prepare.js",
     "start": "ui5 serve -o",
-    "build": "ui5 build"
+    "build": "ui5 build --clean-dist"
   },
   "dependencies": {
     "@openui5/sap.m": "^1.73.2",

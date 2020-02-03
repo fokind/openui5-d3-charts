@@ -15,9 +15,9 @@
       }
     },
     "models": {
-    	"": {
-    		"type": "sap.ui.model.json.JSONModel"
-    	}
+      "": {
+        "type": "sap.ui.model.json.JSONModel"
+      }
     },
     "rootView": {
       "viewName": "ui5lab.demo.view.App",
