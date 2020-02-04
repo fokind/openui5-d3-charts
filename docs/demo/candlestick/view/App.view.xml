@@ -5,7 +5,7 @@
   <App>
     <Page enableScrolling="false" 
       showHeader="false">
-      <chart:Chart padding="10 10 5 5">
+      <chart:Chart padding="10 10 5 5" useTimeAxis="true">
         <chart:series>
           <chart:CandlestickSeries items="{/data}">
             <chart:Candle x="{x}" 
