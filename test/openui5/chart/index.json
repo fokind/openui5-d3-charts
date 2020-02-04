@@ -8,9 +8,9 @@
     "license": "MIT",
     "version": "1.0.2",
     "content": {
-      "Charts": {
-        "id": "charts",
-        "name": "Charts",
+      "Chart": {
+        "id": "chart",
+        "name": "Chart",
         "type": "control",
         "version": "1.0.2",
         "description": "A library wrapping d3.js in UI5 controls to create bindable resposive charts",

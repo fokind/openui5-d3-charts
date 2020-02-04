@@ -1,6 +1,6 @@
 {
   "name": "openui5-d3-chart",
-  "version": "1.0.1-beta",
+  "version": "1.0.2",
   "description": "OpenUI5 Chart library based on d3.js wrapped into resposive bindable controls",
   "repository": {
     "type": "git",
@@ -43,7 +43,7 @@
     "@openui5/themelib_sap_belize": "^1.73.2"
   },
   "devDependencies": {
-    "@ui5/cli": "^1.13.0",
+    "@ui5/cli": "^1.13.1",
     "eslint": "^6.8.0",
     "fs-extra": "^8.1.0",
     "ui5lab-browser": "^1.1.3"
