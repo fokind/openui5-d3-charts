@@ -30,16 +30,22 @@ sap.ui.define(
         var sId = this.getId();
         var fBandWidth = scaleX.bandwidth();
 
-        svg
+        // область отображения данных
+        var candles = svg
           .append("g")
           .attr("id", sId)
           .attr("data-sap-ui", sId)
           .selectAll()
           .data(aItems)
           .enter()
+          .append("g")
+          .classed("oChartGood", e => e.getClose() >= e.getOpen())
+          .classed("oChartBad", e => e.getClose() < e.getOpen());
+
+        // тело свечи
+        candles
           .append("rect")
           .classed("oChartRect", true)
-          .classed("oChartFill" + (iIndex + 1), true) // классы нумеруются с 1
           .attr("x", function(e) {
             return (
               scaleX(e.getX()) +
