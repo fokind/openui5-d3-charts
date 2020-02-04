@@ -1,9 +1,9 @@
 sap.ui.define(
-  ["sap/ui/core/Control", "openui5/chart/Item", "./library"],
-  function(Control) {
+  ["sap/ui/core/Element", "openui5/chart/Item", "./library"],
+  function(Element) {
     "use strict";
 
-    return Control.extend("openui5.chart.Series", {
+    return Element.extend("openui5.chart.Series", {
       metadata: {
         library: "openui5.chart",
         aggregations: {
@@ -15,7 +15,7 @@ sap.ui.define(
       // без этого связывается только 100 элементов
       bindAggregation: function(sName, oBindingInfo) {
         if (!oBindingInfo.length) oBindingInfo.length = 1000000; // Max number of lines to display
-        return sap.ui.core.Control.prototype.bindAggregation.apply(
+        return sap.ui.core.Element.prototype.bindAggregation.apply(
           this,
           arguments
         ); //call superclass
