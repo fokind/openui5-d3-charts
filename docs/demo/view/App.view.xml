@@ -1,6 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" 
   xmlns="sap.m" 
-  xmlns:core="sap.ui.core" 
   xmlns:chart="openui5.chart" 
   displayBlock="true">
   <App>
@@ -9,16 +8,16 @@
       <chart:Chart padding="10 10 5 5">
         <chart:series>
           <chart:ColumnSeries items="{/data}">
-            <core:Item key="{x}" 
-              text="{a}"/>
+            <chart:Point x="{x}" 
+              y="{a}"/>
           </chart:ColumnSeries>
           <chart:ColumnSeries items="{/data}">
-            <core:Item key="{x}" 
-              text="{b}"/>
+            <chart:Point x="{x}" 
+              y="{b}"/>
           </chart:ColumnSeries>
           <chart:LineSeries items="{/data}">
-            <core:Item key="{x}" 
-              text="{a}"/>
+            <chart:Point x="{x}" 
+              y="{a}"/>
           </chart:LineSeries>
         </chart:series>
         <chart:xAxes>

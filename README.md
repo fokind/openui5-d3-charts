@@ -58,7 +58,6 @@ this.getModel().setProperty("/data", [
 2. Add the following namespace declarations to the view with chart control:
 
 ```
-xmlns:core="sap.ui.core"
 xmlns:chart="openui5.chart"
 ```
 
@@ -67,7 +66,7 @@ xmlns:chart="openui5.chart"
 ```
 <chart:Chart>
 	<chart:LineSeries items="{/data}">
-		<core:Item key="{x}" text="{y}"/>
+		<chart:Point x="{x}" y="{y}"/>
 	</chart:LineSeries>
 </chart:Chart>
 ```
