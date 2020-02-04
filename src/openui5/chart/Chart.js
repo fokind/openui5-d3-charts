@@ -4,6 +4,7 @@ sap.ui.define(
   [
     "sap/ui/core/Control",
     "sap/ui/core/ResizeHandler",
+    "openui5/chart/Item",
     "openui5/chart/Axis",
     "openui5/chart/Series",
     "./thirdparty/d3",
@@ -113,7 +114,7 @@ sap.ui.define(
         }
 
         var aXs = aSeries[0].getItems().map(function(e) {
-          return e.getKey();
+          return e.getX();
         });
 
         if (aXs.length <= 1) {
@@ -133,11 +134,14 @@ sap.ui.define(
           .range([fPaddingLeft, fWidth - fPaddingRight]);
 
         var scaleY = this._scaleY
-          .domain(
-            d3.extent(aMergedItems, function(e) {
-              return +e.getText();
+          .domain([
+            d3.min(aMergedItems, function(e) {
+              return e._getMin();
+            }),
+            d3.max(aMergedItems, function(e) {
+              return e._getMax();
             })
-          )
+          ])
           .range([fPaddingTop + fPlotAreaHeight, fPaddingTop]);
 
         // inserting series

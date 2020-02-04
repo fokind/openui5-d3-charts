@@ -1,11 +1,17 @@
 /* global d3 */
 
 sap.ui.define(
-  ["openui5/chart/Series", "./library", "./thirdparty/d3"],
+  ["openui5/chart/Series", "openui5/chart/Point", "./library", "./thirdparty/d3"],
   function(Series) {
     "use strict";
 
     return Series.extend("openui5.chart.LineSeries", {
+      metadata: {
+        aggregations: {
+          items: { type: "openui5.chart.Point", multiple: true }
+        }
+      },
+
       _draw: function() {
         Series.prototype._draw.apply(this);
         var oParent = this.getParent();
@@ -32,10 +38,10 @@ sap.ui.define(
             d3
               .line()
               .x(function(e) {
-                return scaleX(e.getKey()) + fHalfBandwidth;
+                return scaleX(e.getX()) + fHalfBandwidth;
               })
               .y(function(e) {
-                return scaleY(+e.getText());
+                return scaleY(e.getY());
               })
           );
       }

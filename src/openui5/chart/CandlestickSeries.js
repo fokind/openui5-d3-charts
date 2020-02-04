@@ -42,15 +42,15 @@ sap.ui.define(
           .classed("oChartFill" + (iIndex + 1), true) // классы нумеруются с 1
           .attr("x", function(e) {
             return (
-              scaleX(e.getKey()) +
+              scaleX(e.getX()) +
               (fBandWidth * iColumnSeriesIndex) / iColumnSeriesLength
             );
           })
           .attr("y", function(e) {
-            return scaleY(Math.max(+e.getOpen(), +e.getClose()));
+            return scaleY(Math.max(e.getOpen(), e.getClose()));
           })
           .attr("height", function(e) {
-            return Math.abs(scaleY(+e.getClose()) - scaleY(+e.getOpen()));
+            return Math.abs(scaleY(e.getClose()) - scaleY(e.getOpen()));
           })
           .attr("width", fBandWidth / iColumnSeriesLength);
       }

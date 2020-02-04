@@ -1,22 +1,19 @@
 sap.ui.define(["openui5/chart/Item", "./library"], function(Item) {
   "use strict";
 
-  return Item.extend("openui5.chart.Candle", {
+  return Item.extend("openui5.chart.Point", {
     metadata: {
       properties: {
-        open: "float",
-        high: "float",
-        low: "float",
-        close: "float"
+        y: "float"
       }
     },
     
     _getMax: function () {
-      return this.getHigh();
+      return this.getY();
     },
     
     _getMin: function () {
-      return this.getLow();
+      return this.getY();
     }
   });
 });
