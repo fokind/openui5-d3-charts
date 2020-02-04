@@ -1,0 +1,27 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" 
+  xmlns="sap.m" 
+  xmlns:chart="openui5.chart" 
+  displayBlock="true">
+  <App>
+    <Page enableScrolling="false" 
+      showHeader="false">
+      <chart:Chart padding="10 10 5 5">
+        <chart:series>
+          <chart:CandlestickSeries items="{/data}">
+            <chart:Candle x="{x}" 
+              open="{o}"
+              high="{h}"
+              low="{l}"
+              close="{c}"/>
+          </chart:CandlestickSeries>
+        </chart:series>
+        <chart:xAxes>
+          <chart:Axis size="20"/>
+        </chart:xAxes>
+        <chart:yAxes>
+          <chart:Axis size="30"/>
+        </chart:yAxes>
+      </chart:Chart>
+    </Page>
+  </App>
+</mvc:View>

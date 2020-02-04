@@ -1,5 +1,5 @@
 sap.ui.define(
-  ["sap/ui/core/Control", "sap/ui/core/Item", "./library"],
+  ["sap/ui/core/Control", "openui5/chart/Item", "./library"],
   function(Control) {
     "use strict";
 
@@ -7,7 +7,7 @@ sap.ui.define(
       metadata: {
         library: "openui5.chart",
         aggregations: {
-          items: { type: "sap.ui.core.Item", multiple: true }
+          items: { type: "openui5.chart.Item", multiple: true }
         },
         defaultAggregation: "items"
       },
