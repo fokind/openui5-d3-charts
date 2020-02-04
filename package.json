@@ -1,29 +1,33 @@
 {
-  "name": "openui5-charts",
+  "name": "openui5-d3-chart",
   "version": "1.0.1-beta",
-  "description": "OpenUI5 Charts based on d3.js wrapped into resposive bindable controls",
+  "description": "OpenUI5 Chart library based on d3.js wrapped into resposive bindable controls",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fokind/openui5-charts"
+    "url": "https://github.com/fokind/openui5-d3-charts"
   },
-  "homepage": "https://github.com/fokind/openui5-charts",
+  "bugs": {
+    "url": "https://github.com/fokind/openui5-d3-charts/issues"
+  },
+  "homepage": "https://github.com/fokind/openui5-d3-charts",
   "ui5lab": {
-    "namespace": "openui5.charts",
+    "namespace": "openui5.chart",
     "icon": "business-objects-experience",
-    "displayName": "Charts"
+    "displayName": "Chart"
   },
   "keywords": [
     "ui5",
     "openui5",
     "d3",
-    "chart"
+    "chart",
+    "front-end"
   ],
   "author": {
     "name": "Dmitry Fokin"
   },
   "license": "MIT",
   "private": false,
-  "main": "dist/resources/openui5/chart/library-preload.js",
+  "main": "dist/resources/openui5/chart",
   "files": [
     "dist"
   ],

@@ -1,14 +1,14 @@
-# OpenUI5 Charts based on d3.js
+# OpenUI5 Chart library based on d3.js
 
 An OpenUI5 library based on [d3.js](https://github.com/d3/d3) to create charts as responsive bindable fiori-like controls.
 
 ## Demo
 
-You can checkout a live demo here: https://fokind.github.io/openui5-charts/demo/index.html
+You can checkout a live demo here: https://fokind.github.io/openui5-d3-charts/demo/index.html
 
 ## Project Structure
 
-- demo - Demo site for the library
+- docs/demo - Demo site for the library
 - dist - Distribution folder that contains the library ready to use
 - src - Development folder
 - test - Testing framework for the library
@@ -17,10 +17,10 @@ You can checkout a live demo here: https://fokind.github.io/openui5-charts/demo/
 
 ### Installation
 
-Install openui5-charts as an npm module
+Install openui5-d3-chart as an npm module
 
 ```sh
-$ npm install openui5-charts
+$ npm install openui5-d3-chart
 ```
 
 ### Configure manifest.json
@@ -48,10 +48,10 @@ Add the library to _sap.ui5/dependencies/libs_ and set its path in _sap.ui5/reso
 
 ```
 this.getModel().setProperty("/data", [
-	{ y: 0 },
-	{ y: -1 },
-	{ y: 2 },
-	{ y: 3 }
+	{ x: 0, y: 0 },
+	{ x: 1, y: -1 },
+	{ x: 2, y: 2 },
+	{ x: 3, y: 3 }
 ]);
 ```
 
@@ -65,8 +65,10 @@ xmlns:chart="openui5.chart"
 3. Add the following control to the view:
 
 ```
-<chart:Chart items="{/data}">
-	<core:Item text="{y}"/>
+<chart:Chart>
+	<chart:LineSeries items="{/data}">
+		<core:Item key="{x}" text="{y}"/>
+	</chart:LineSeries>
 </chart:Chart>
 ```
 
